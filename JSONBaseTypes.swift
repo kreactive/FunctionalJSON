@@ -23,8 +23,32 @@ private extension NSNumber {
 extension Int : JSONReadable {
     public static let jsonRead = NSNumber.jsonRead.map {$0.integerValue}
 }
+extension Int8 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.charValue}
+}
+extension Int16 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.shortValue}
+}
+extension Int32 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.intValue}
+}
+extension Int64 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.longLongValue}
+}
 extension UInt : JSONReadable {
     public static let jsonRead = NSNumber.jsonRead.map {$0.unsignedIntegerValue}
+}
+extension UInt8 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.unsignedCharValue}
+}
+extension UInt16 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.unsignedShortValue}
+}
+extension UInt32 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.unsignedIntValue}
+}
+extension UInt64 : JSONReadable {
+    public static let jsonRead = NSNumber.jsonRead.map {$0.unsignedLongLongValue}
 }
 extension Bool : JSONReadable {
     public static let jsonRead = NSNumber.jsonRead.map {$0.boolValue}
