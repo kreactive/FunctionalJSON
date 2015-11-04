@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B35850D7E94C23E747AD1C9214B483901B72C20D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B35850D7E94C23E747AD1C9214B483901B72C20D" : 0,
+    "BC62C74929494DD2B2AC052752B2876E8C3CAFF6" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "53ED2CE2-1D6C-483C-9533-094449504085",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B35850D7E94C23E747AD1C9214B483901B72C20D" : "FuunctionalJSON\/",
+    "BC62C74929494DD2B2AC052752B2876E8C3CAFF6" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FunctionalJSON",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FunctionalJSON\/FunctionalJSON.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.infra.kreactive.eu:component.ios\/FunctionalJSON.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B35850D7E94C23E747AD1C9214B483901B72C20D"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "git.infra.kreactive.eu:a.palazzolo\/AKAds.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "BC62C74929494DD2B2AC052752B2876E8C3CAFF6"
+    }
+  ]
+}
