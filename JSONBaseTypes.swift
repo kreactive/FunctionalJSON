@@ -10,7 +10,7 @@ import Foundation
 
 private extension JSONValue {
     func to<U>(_ : U.Type) throws -> U {
-        guard let underlying = self.underlying else {throw JSONReadError.ValueNotFound(self.path)}
+        guard let underlying = self.underlying else { throw JSONReadError.ValueNotFound(self.path) }
         guard let ret = underlying as? U else {throw JSONReadError.BadValueType(self.path)}
         return ret
     }

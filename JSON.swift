@@ -21,14 +21,23 @@ public struct JSONValue {
         self.path = path
     }
     
-    private var isEmpty : Bool {
-        return self.underlying == nil
+    var isEmpty : Bool {
+        switch self.underlying {
+        case nil:
+            return true
+        case let x as NSDictionary where x.count == 0:
+            return true
+        case let x as NSArray where x.count == 0:
+            return true
+        default:
+            return false
+        }
     }
     
     public func elementAtPath(path : JSONPath) -> JSONValue {
         var currentValue = self
         var currentPath = self.path
-        guard case .Some(_) = currentValue.underlying else {return self}
+        guard currentValue.underlying != nil else {return JSONValue(underlying: nil,path : self.path + path)}
         for component in path.content {
             currentPath.append(component)
             if let c = component as? String, let v = currentValue.underlying as? Dictionary<String,AnyObject> {
@@ -77,7 +86,10 @@ public protocol JSONPathComponent {}
 extension String : JSONPathComponent {}
 extension Int : JSONPathComponent {}
 
-public struct JSONPath {
+public struct JSONPath : CustomStringConvertible {
+    public var description: String {
+        return self.content.map{String($0)}.joinWithSeparator("/")
+    }
     private var content : [JSONPathComponent]
     public init() {
         self.content = []
