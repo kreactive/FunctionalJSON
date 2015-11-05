@@ -40,19 +40,20 @@ public struct JSONValue {
         guard currentValue.underlying != nil else {return JSONValue(underlying: nil,path : self.path + path)}
         for component in path.content {
             currentPath.append(component)
-            if let c = component as? String, let v = currentValue.underlying as? Dictionary<String,AnyObject> {
-                if let newValue = v[c] {
+            switch (component, currentValue.underlying) {
+            case (.Key(let key), let v as Dictionary<String,AnyObject>):
+                if let newValue = v[key] {
                     currentValue = JSONValue(underlying: newValue,path : currentPath)
                 } else {
                     return JSONValue(underlying: nil,path : currentPath)
                 }
-            } else if let c = component as? Int, let v = currentValue.underlying as? Array<AnyObject> {
-                if c < v.count {
-                    currentValue = JSONValue(underlying: v[c],path : currentPath)
+            case (.Index(let index), let v as Array<AnyObject>):
+                if index < v.count {
+                    currentValue = JSONValue(underlying: v[index],path : currentPath)
                 } else {
                     return JSONValue(underlying: nil,path : self.path + path)
                 }
-            } else {
+            default:
                 return JSONValue(underlying: nil,path : self.path + path)
             }
         }
@@ -80,13 +81,32 @@ public struct JSONValue {
 }
 
 
+public enum JSONPathComponent : IntegerLiteralConvertible,StringLiteralConvertible,Equatable {
+    case Key(String)
+    case Index(Int)
+    init(_ value: String) {
+        self = .Key(value)
+    }
+    init(_ value: Int) {
+        self = Index(value)
+    }
+    public init(integerLiteral value: IntegerLiteralType) {
+        self.init(value)
+    }
+    public init(stringLiteral value: StringLiteralType) {
+        self.init(String(value))
+    }
+    public typealias UnicodeScalarLiteralType = StringLiteralType
+    public init(unicodeScalarLiteral value: UnicodeScalarLiteralType) {
+        self.init(stringLiteral : value)
+    }
+    public typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
+    public init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
+        self.init(stringLiteral : value)
+    }
+}
 
-
-public protocol JSONPathComponent {}
-extension String : JSONPathComponent {}
-extension Int : JSONPathComponent {}
-
-public struct JSONPath : CustomStringConvertible {
+public struct JSONPath : CustomStringConvertible, Equatable {
     public var description: String {
         return self.content.map{String($0)}.joinWithSeparator("/")
     }
@@ -95,10 +115,10 @@ public struct JSONPath : CustomStringConvertible {
         self.content = []
     }
     public init(_ component: String) {
-        self.content = [component]
+        self.content = [JSONPathComponent(component)]
     }
     public init(_ component: Int) {
-        self.content = [component]
+        self.content = [JSONPathComponent(component)]
     }
     public init(_ path: JSONPath) {
         self.content = path.content
@@ -150,12 +170,34 @@ extension JSONPath : ArrayLiteralConvertible {
 
 }
 
+public func ==(lhs : JSONPath,rhs : JSONPath) -> Bool {
+    return lhs.content == rhs.content
+}
+public func ==(lhs : JSONPathComponent,rhs : JSONPathComponent) -> Bool {
+    switch (lhs,rhs) {
+    case (.Key(let v1),.Key(let v2)) where v1 == v2:
+        return true
+    case (.Index(let v1),.Index(let v2)) where v1 == v2:
+        return true
+    default :
+        return false
+    }
+}
+
 public func +(var lhs: JSONPath, rhs: JSONPath) -> JSONPath {
     lhs.append(rhs)
     return lhs
 }
 public func +(var lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
     lhs.append(rhs)
+    return lhs
+}
+public func +(var lhs: JSONPath, rhs: Int) -> JSONPath {
+    lhs.append(JSONPathComponent(rhs))
+    return lhs
+}
+public func +(var lhs: JSONPath, rhs: String) -> JSONPath {
+    lhs.append(JSONPathComponent(rhs))
     return lhs
 }
 
