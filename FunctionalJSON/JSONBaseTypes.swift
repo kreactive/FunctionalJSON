@@ -64,20 +64,33 @@ extension String : JSONReadable {
 }
 
 public extension Array {
-    private static func read() -> JSONRead<[JSONValue]> {
+    internal static func jsonReadValues() -> JSONRead<[JSONValue]> {
         return JSONRead<[JSONValue]> { v in
             guard let underlying = v.underlying else {throw JSONReadError.ValueNotFound(v.path)}
             guard let arrayValue = underlying as? Array<AnyObject> else {throw JSONReadError.BadValueType(v.path)}
             let ret = arrayValue.enumerate().map {JSONValue(underlying: $0.1, path: v.path+$0.0)}
             return ret
         }
-
     }
-    public static func read<Element>(rds : JSONRead<Element>) -> JSONRead<[Element]> {
-        return self.read().map {try $0.map(rds.read)}
+    public static func jsonRead(rds : JSONRead<Element>) -> JSONRead<[Element]> {
+        return self.jsonReadValues().map {try $0.map(rds.read)}
     }
-    public static func readOpt<Element>(rds : JSONRead<Element>) -> JSONRead<[Element]> {
-        return self.read().map { $0.flatMap {try? rds.read($0)}}
+    public static func jsonReadOpt(rds : JSONRead<Element>) -> JSONRead<[Element?]> {
+        return self.jsonReadValues().map { $0.map {try? rds.read($0)}}
+    }
+    public static func jsonReadOptFlat(rds : JSONRead<Element>) -> JSONRead<[Element]> {
+        return self.jsonReadValues().map { $0.flatMap {try? rds.read($0)}}
+    }
+}
+public extension Array where Element : JSONReadable {
+    public static func jsonRead(v : Element.Type) -> JSONRead<[Element]> {
+        return self.jsonRead(v.jsonRead)
+    }
+    public static func jsonReadOpt(v : Element.Type) -> JSONRead<[Element?]> {
+        return self.jsonReadOpt(v.jsonRead)
+    }
+    public static func jsonReadOptFlat(v : Element.Type) -> JSONRead<[Element]> {
+        return self.jsonReadOptFlat(v.jsonRead)
     }
 }
 
