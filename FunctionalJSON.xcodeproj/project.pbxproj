@@ -16,6 +16,8 @@
 		71456E0B1BEA755D002E5D99 /* JSONReadComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E071BEA755D002E5D99 /* JSONReadComposition.swift */; };
 		71456E0D1BEB4B2B002E5D99 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
 		717CA7CD1BEBA9C700BBB163 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
+		717CA7D21BEBD0FD00BBB163 /* JSONBaseTypeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTest.swift */; };
+		717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D31BEBD15A00BBB163 /* TestUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		71456E061BEA755D002E5D99 /* JSONFoundationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFoundationTypes.swift; sourceTree = "<group>"; };
 		71456E071BEA755D002E5D99 /* JSONReadComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReadComposition.swift; sourceTree = "<group>"; };
 		71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalBuilder.framework; path = Carthage/Build/iOS/FunctionalBuilder.framework; sourceTree = "<group>"; };
+		717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONBaseTypeTest.swift; sourceTree = "<group>"; };
+		717CA7D31BEBD15A00BBB163 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +71,9 @@
 			isa = PBXGroup;
 			children = (
 				71264A171BEBA44B00D13BD7 /* FunctionalJSONTests.swift */,
+				717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTest.swift */,
 				71264A191BEBA44B00D13BD7 /* Info.plist */,
+				717CA7D31BEBD15A00BBB163 /* TestUtils.swift */,
 			);
 			path = FunctionalJSONTests;
 			sourceTree = "<group>";
@@ -238,6 +244,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				717CA7D21BEBD0FD00BBB163 /* JSONBaseTypeTest.swift in Sources */,
+				717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */,
 				71264A181BEBA44B00D13BD7 /* FunctionalJSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
