@@ -7,15 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71264A181BEBA44B00D13BD7 /* FunctionalJSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71264A171BEBA44B00D13BD7 /* FunctionalJSONTests.swift */; };
+		71264A1A1BEBA44B00D13BD7 /* FunctionalJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456DF91BEA74FE002E5D99 /* FunctionalJSON.framework */; };
 		71456DFD1BEA74FE002E5D99 /* FunctionalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 71456DFC1BEA74FE002E5D99 /* FunctionalJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71456E081BEA755D002E5D99 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E041BEA755D002E5D99 /* JSON.swift */; };
 		71456E091BEA755D002E5D99 /* JSONBaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E051BEA755D002E5D99 /* JSONBaseTypes.swift */; };
 		71456E0A1BEA755D002E5D99 /* JSONFoundationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E061BEA755D002E5D99 /* JSONFoundationTypes.swift */; };
 		71456E0B1BEA755D002E5D99 /* JSONReadComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E071BEA755D002E5D99 /* JSONReadComposition.swift */; };
 		71456E0D1BEB4B2B002E5D99 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
+		717CA7CD1BEBA9C700BBB163 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		71264A1B1BEBA44B00D13BD7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 71456DF01BEA74FE002E5D99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 71456DF81BEA74FE002E5D99;
+			remoteInfo = FunctionalJSON;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalJSONTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		71264A171BEBA44B00D13BD7 /* FunctionalJSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FunctionalJSONTests.swift; sourceTree = "<group>"; };
+		71264A191BEBA44B00D13BD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		71456DF91BEA74FE002E5D99 /* FunctionalJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunctionalJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		71456DFC1BEA74FE002E5D99 /* FunctionalJSON.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FunctionalJSON.h; sourceTree = "<group>"; };
 		71456DFE1BEA74FE002E5D99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -27,6 +43,15 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		71264A121BEBA44B00D13BD7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71264A1A1BEBA44B00D13BD7 /* FunctionalJSON.framework in Frameworks */,
+				717CA7CD1BEBA9C700BBB163 /* FunctionalBuilder.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71456DF51BEA74FE002E5D99 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -38,11 +63,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		71264A161BEBA44B00D13BD7 /* FunctionalJSONTests */ = {
+			isa = PBXGroup;
+			children = (
+				71264A171BEBA44B00D13BD7 /* FunctionalJSONTests.swift */,
+				71264A191BEBA44B00D13BD7 /* Info.plist */,
+			);
+			path = FunctionalJSONTests;
+			sourceTree = "<group>";
+		};
 		71456DEF1BEA74FE002E5D99 = {
 			isa = PBXGroup;
 			children = (
 				71456E0E1BEB4B34002E5D99 /* Dependencies */,
 				71456DFB1BEA74FE002E5D99 /* FunctionalJSON */,
+				71264A161BEBA44B00D13BD7 /* FunctionalJSONTests */,
 				71456DFA1BEA74FE002E5D99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				71456DF91BEA74FE002E5D99 /* FunctionalJSON.framework */,
+				71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +126,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		71264A141BEBA44B00D13BD7 /* FunctionalJSONTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 71264A1F1BEBA44B00D13BD7 /* Build configuration list for PBXNativeTarget "FunctionalJSONTests" */;
+			buildPhases = (
+				71264A111BEBA44B00D13BD7 /* Sources */,
+				71264A121BEBA44B00D13BD7 /* Frameworks */,
+				71264A131BEBA44B00D13BD7 /* Resources */,
+				717CA7D01BEBAE5B00BBB163 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				71264A1C1BEBA44B00D13BD7 /* PBXTargetDependency */,
+			);
+			name = FunctionalJSONTests;
+			productName = FunctionalJSONTests;
+			productReference = 71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		71456DF81BEA74FE002E5D99 /* FunctionalJSON */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71456E011BEA74FE002E5D99 /* Build configuration list for PBXNativeTarget "FunctionalJSON" */;
@@ -114,9 +169,13 @@
 		71456DF01BEA74FE002E5D99 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Kreactive;
 				TargetAttributes = {
+					71264A141BEBA44B00D13BD7 = {
+						CreatedOnToolsVersion = 7.1;
+					};
 					71456DF81BEA74FE002E5D99 = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -135,11 +194,19 @@
 			projectRoot = "";
 			targets = (
 				71456DF81BEA74FE002E5D99 /* FunctionalJSON */,
+				71264A141BEBA44B00D13BD7 /* FunctionalJSONTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		71264A131BEBA44B00D13BD7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71456DF71BEA74FE002E5D99 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -149,7 +216,32 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		717CA7D01BEBAE5B00BBB163 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/FunctionalBuilder.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		71264A111BEBA44B00D13BD7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				71264A181BEBA44B00D13BD7 /* FunctionalJSONTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71456DF41BEA74FE002E5D99 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -163,7 +255,43 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		71264A1C1BEBA44B00D13BD7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 71456DF81BEA74FE002E5D99 /* FunctionalJSON */;
+			targetProxy = 71264A1B1BEBA44B00D13BD7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		71264A1D1BEBA44B00D13BD7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = FunctionalJSONTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSONTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		71264A1E1BEBA44B00D13BD7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				INFOPLIST_FILE = FunctionalJSONTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSONTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		71456DFF1BEA74FE002E5D99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -256,6 +384,7 @@
 		71456E021BEA74FE002E5D99 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -267,6 +396,7 @@
 				);
 				INFOPLIST_FILE = FunctionalJSON/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSON;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -278,6 +408,7 @@
 		71456E031BEA74FE002E5D99 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -289,6 +420,7 @@
 				);
 				INFOPLIST_FILE = FunctionalJSON/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSON;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -299,6 +431,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		71264A1F1BEBA44B00D13BD7 /* Build configuration list for PBXNativeTarget "FunctionalJSONTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				71264A1D1BEBA44B00D13BD7 /* Debug */,
+				71264A1E1BEBA44B00D13BD7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		71456DF31BEA74FE002E5D99 /* Build configuration list for PBXProject "FunctionalJSON" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
