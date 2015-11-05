@@ -12,6 +12,7 @@
 		71456E091BEA755D002E5D99 /* JSONBaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E051BEA755D002E5D99 /* JSONBaseTypes.swift */; };
 		71456E0A1BEA755D002E5D99 /* JSONFoundationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E061BEA755D002E5D99 /* JSONFoundationTypes.swift */; };
 		71456E0B1BEA755D002E5D99 /* JSONReadComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E071BEA755D002E5D99 /* JSONReadComposition.swift */; };
+		71456E0D1BEB4B2B002E5D99 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		71456E051BEA755D002E5D99 /* JSONBaseTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONBaseTypes.swift; sourceTree = "<group>"; };
 		71456E061BEA755D002E5D99 /* JSONFoundationTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFoundationTypes.swift; sourceTree = "<group>"; };
 		71456E071BEA755D002E5D99 /* JSONReadComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReadComposition.swift; sourceTree = "<group>"; };
+		71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalBuilder.framework; path = Carthage/Build/iOS/FunctionalBuilder.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				71456E0D1BEB4B2B002E5D99 /* FunctionalBuilder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +41,7 @@
 		71456DEF1BEA74FE002E5D99 = {
 			isa = PBXGroup;
 			children = (
+				71456E0E1BEB4B34002E5D99 /* Dependencies */,
 				71456DFB1BEA74FE002E5D99 /* FunctionalJSON */,
 				71456DFA1BEA74FE002E5D99 /* Products */,
 			);
@@ -62,6 +66,14 @@
 				71456DFE1BEA74FE002E5D99 /* Info.plist */,
 			);
 			path = FunctionalJSON;
+			sourceTree = "<group>";
+		};
+		71456E0E1BEB4B34002E5D99 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */,
+			);
+			name = Dependencies;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +261,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FunctionalJSON/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -267,6 +283,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = FunctionalJSON/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
