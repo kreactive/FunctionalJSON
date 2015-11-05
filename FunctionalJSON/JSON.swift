@@ -21,7 +21,7 @@ public struct JSONValue {
         self.path = path
     }
     
-    var isEmpty : Bool {
+    public var isEmpty : Bool {
         switch self.underlying {
         case nil:
             return true
