@@ -104,5 +104,49 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertEqual(try! json.validate(JSONPath(0).readOpt(Int)), nil)
 
     }
-    
+    func testPathBuild() {
+        let path1 : JSONPath = "part1"+"part2"
+        XCTAssertEqual(path1, JSONPath(["part1","part2"]))
+        
+        let path2 : JSONPath = "part1"+"part2"+0
+        XCTAssertEqual(path2, JSONPath(["part1","part2",0]))
+        
+        let path3 : JSONPath = "part1"+"part2"+0+"part3"
+        XCTAssertEqual(path3, JSONPath(["part1","part2",0,"part3"]))
+        
+        let path4 : JSONPath = 1+2+0+4
+        XCTAssertEqual(path4, JSONPath([1,2,0,4]))
+        
+    }
+    func testPathComparison() {
+        let path1 : JSONPath = "part1"+"part2"+"part3"
+        XCTAssertEqual(path1, path1)
+        
+        let path2 : JSONPath = "part1"+3+"part3"
+        XCTAssertEqual(path2, path2)
+        
+        let path3 : JSONPath = "part12"+"part2"+0+"part3"
+        XCTAssertEqual(path3, path3)
+        
+        let path4 : JSONPath = 1+2+0+4
+        XCTAssertEqual(path4, path4)
+        
+        XCTAssertEqual(JSONPath(), JSONPath())
+
+        
+        XCTAssertNotEqual(path1, path2)
+        XCTAssertNotEqual(path1, path3)
+        XCTAssertNotEqual(path2, path3)
+    }
+    func testPathDescription() {
+        let path1 : JSONPath = "part1"+"part2"+"part3"
+        XCTAssertNotNil(path1.description)
+        
+        let path2 : JSONPath = "part1"+3+"part3"
+        XCTAssertNotNil(path2.description)
+        
+        let path3 : JSONPath = "part12"+"part2"+0+"part3"
+        XCTAssertNotNil(path3.description)
+        
+    }
 }
