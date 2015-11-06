@@ -112,16 +112,19 @@ public struct JSONPath : CustomStringConvertible, Equatable {
     }
     private var content : [JSONPathComponent]
     public init() {
-        self.content = []
+        self.init([])
     }
     public init(_ component: String) {
-        self.content = [JSONPathComponent(component)]
+        self.init(JSONPathComponent(component))
     }
     public init(_ component: Int) {
-        self.content = [JSONPathComponent(component)]
+        self.init(JSONPathComponent(component))
     }
-    public init(_ path: JSONPath) {
-        self.content = path.content
+    public init(_ pathc: JSONPathComponent) {
+        self.init([pathc])
+    }
+    public init(_ path: [JSONPathComponent]) {
+        self.content = path
     }
     public mutating func append(component : JSONPathComponent) {
         self.content.append(component)
@@ -136,10 +139,10 @@ public struct JSONPath : CustomStringConvertible, Equatable {
         return JSONRead<T>(path: self, source: rds).toOpt()
     }
     public func read<T: JSONReadable>(_ : T.Type) -> JSONRead<T> {
-        return JSONRead<T>(path: self, source: T.jsonRead)
+        return self.read(T.jsonRead)
     }
     public func readOpt<T: JSONReadable>(_ : T.Type) -> JSONRead<T?> {
-        return JSONRead<T>(path: self, source: T.jsonRead).toOpt()
+        return self.readOpt(T.jsonRead)
     }
 }
 extension JSONPath : StringLiteralConvertible {
@@ -165,7 +168,7 @@ extension JSONPath : IntegerLiteralConvertible {
 }
 extension JSONPath : ArrayLiteralConvertible {
     public init(arrayLiteral elements: JSONPathComponent...) {
-        self.content = elements
+        self.init(elements)
     }
 
 }
@@ -192,13 +195,14 @@ public func +(var lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
     lhs.append(rhs)
     return lhs
 }
-public func +(var lhs: JSONPath, rhs: Int) -> JSONPath {
-    lhs.append(JSONPathComponent(rhs))
-    return lhs
+public func +(lhs: JSONPath, rhs: Int) -> JSONPath {
+    return lhs+JSONPathComponent(rhs)
 }
-public func +(var lhs: JSONPath, rhs: String) -> JSONPath {
-    lhs.append(JSONPathComponent(rhs))
-    return lhs
+public func +(lhs: JSONPath, rhs: String) -> JSONPath {
+    return lhs+JSONPathComponent(rhs)
+}
+public func +(lhs: JSONPathComponent, rhs: JSONPathComponent) -> JSONPath {
+    return JSONPath(lhs)+rhs
 }
 
 public enum JSONReadError : ErrorType {
@@ -222,8 +226,7 @@ public struct JSONRead<T> {
         self.path = path
     }
     init(path :JSONPath = JSONPath([]), source : JSONRead<T>) {
-        self.transform = source.transform
-        self.path = path
+        self.init(path: path, transform : source.transform)
     }
     
     func read(value : JSONValue) throws -> T {
