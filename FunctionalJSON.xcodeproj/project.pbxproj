@@ -16,6 +16,7 @@
 		71456E0B1BEA755D002E5D99 /* JSONReadComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E071BEA755D002E5D99 /* JSONReadComposition.swift */; };
 		71456E0D1BEB4B2B002E5D99 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
 		71501DD21BECE69400541CBE /* JSONCompositionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71501DD11BECE69400541CBE /* JSONCompositionTests.swift */; };
+		71501DD41BECF63100541CBE /* PerformancesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71501DD31BECF63100541CBE /* PerformancesTests.swift */; };
 		717CA7CD1BEBA9C700BBB163 /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */; };
 		717CA7D21BEBD0FD00BBB163 /* JSONBaseTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTests.swift */; };
 		717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D31BEBD15A00BBB163 /* TestUtils.swift */; };
@@ -45,6 +46,7 @@
 		71456E071BEA755D002E5D99 /* JSONReadComposition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONReadComposition.swift; sourceTree = "<group>"; };
 		71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalBuilder.framework; path = Carthage/Build/iOS/FunctionalBuilder.framework; sourceTree = "<group>"; };
 		71501DD11BECE69400541CBE /* JSONCompositionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONCompositionTests.swift; sourceTree = "<group>"; };
+		71501DD31BECF63100541CBE /* PerformancesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PerformancesTests.swift; sourceTree = "<group>"; };
 		717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONBaseTypeTests.swift; sourceTree = "<group>"; };
 		717CA7D31BEBD15A00BBB163 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		717CA7D51BEC916D00BBB163 /* JSONFoundationTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFoundationTypesTests.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTests.swift */,
 				717CA7D51BEC916D00BBB163 /* JSONFoundationTypesTests.swift */,
 				71501DD11BECE69400541CBE /* JSONCompositionTests.swift */,
+				71501DD31BECF63100541CBE /* PerformancesTests.swift */,
 				71264A191BEBA44B00D13BD7 /* Info.plist */,
 				717CA7D31BEBD15A00BBB163 /* TestUtils.swift */,
 			);
@@ -252,6 +255,7 @@
 			files = (
 				717CA7D21BEBD0FD00BBB163 /* JSONBaseTypeTests.swift in Sources */,
 				71501DD21BECE69400541CBE /* JSONCompositionTests.swift in Sources */,
+				71501DD41BECF63100541CBE /* PerformancesTests.swift in Sources */,
 				717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */,
 				717CA7D61BEC916D00BBB163 /* JSONFoundationTypesTests.swift in Sources */,
 				71264A181BEBA44B00D13BD7 /* JSONTests.swift in Sources */,

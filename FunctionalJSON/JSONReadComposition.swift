@@ -29,10 +29,10 @@ extension JSONPath {
     }
 }
 extension JSONValue {
-    public func validate<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) throws -> JSONRead<T> {
+    public func validate<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) throws -> T {
         return try self.validate(JSONRead(compose))
     }
-    public func validateOpt<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) -> JSONRead<T?> {
+    public func validateOpt<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) -> T? {
         return self.validateOpt(JSONRead(compose))
     }
 }
