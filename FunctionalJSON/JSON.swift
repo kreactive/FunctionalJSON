@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import FunctionalBuilder
 
 public struct JSONValue {
     let underlying : AnyObject?
@@ -81,7 +82,7 @@ public struct JSONValue {
 }
 
 
-public enum JSONPathComponent : IntegerLiteralConvertible,StringLiteralConvertible,Equatable {
+public enum JSONPathComponent : IntegerLiteralConvertible,StringLiteralConvertible,Equatable,CustomStringConvertible {
     case Key(String)
     case Index(Int)
     init(_ value: String) {
@@ -103,6 +104,12 @@ public enum JSONPathComponent : IntegerLiteralConvertible,StringLiteralConvertib
     public typealias ExtendedGraphemeClusterLiteralType = StringLiteralType
     public init(extendedGraphemeClusterLiteral value: ExtendedGraphemeClusterLiteralType) {
         self.init(stringLiteral : value)
+    }
+    public var description: String {
+        switch self {
+        case .Key(let v) : return v
+        case .Index(let v) : return String(v)
+        }
     }
 }
 
@@ -223,7 +230,7 @@ public struct JSONRead<T> {
         self.path = path
     }
     init(path :JSONPath = JSONPath([]), source : JSONRead<T>) {
-        self.init(path: path, transform : source.transform)
+        self.init(path: path+source.path, transform : source.transform)
     }
     
     func read(value : JSONValue) throws -> T {
@@ -232,6 +239,18 @@ public struct JSONRead<T> {
             return try self.transform(value)
         } catch let error as JSONReadError {
             throw error
+        } catch ComposeError.Error(let errors) {
+            let errors = errors.map { err -> [JSONReadError] in
+                switch err {
+                case JSONReadError.CompositionError(let errors):
+                    return errors
+                case let x as JSONReadError:
+                    return [x]
+                default:
+                    return [JSONReadError.TransformError(value.path, underlying: err)]
+                }
+            }.flatMap{$0}
+            throw JSONReadError.CompositionError(errors)
         } catch {
             throw JSONReadError.TransformError(value.path, underlying: error)
         }
