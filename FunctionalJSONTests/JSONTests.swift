@@ -24,12 +24,6 @@ class FunctionalJSONTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    
     struct Foo : JSONReadable {
         let prop1 : String
         let prop2 : Int
@@ -52,5 +46,20 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertTrue(foo.prop4)
 
         
+    }
+    
+    func testEmpty() {
+        let emptyJSONObject = try! jsonFromAny(NSDictionary())
+        XCTAssert(emptyJSONObject.isEmpty)
+        let notEmptyJSONObject = try! jsonFromAny(["v" : "coucou"])
+        XCTAssertFalse(notEmptyJSONObject.isEmpty)
+        
+        let emptyJSONArray = try! jsonFromAny(NSArray())
+        XCTAssert(emptyJSONArray.isEmpty)
+        let notEmptyJSONArray = try! jsonFromAny(["coucou"])
+        XCTAssertFalse(notEmptyJSONArray.isEmpty)
+        
+        let nullJSON = try! jsonFromAny(NSArray())[0]
+        XCTAssert(nullJSON.isEmpty)
     }
 }
