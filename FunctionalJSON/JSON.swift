@@ -201,9 +201,6 @@ public func +(lhs: JSONPath, rhs: Int) -> JSONPath {
 public func +(lhs: JSONPath, rhs: String) -> JSONPath {
     return lhs+JSONPathComponent(rhs)
 }
-public func +(lhs: JSONPathComponent, rhs: JSONPathComponent) -> JSONPath {
-    return JSONPath(lhs)+rhs
-}
 
 public enum JSONReadError : ErrorType {
     case ValueNotFound(JSONPath)
