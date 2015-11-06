@@ -204,6 +204,7 @@ public func +(var lhs: JSONPath, rhs: String) -> JSONPath {
 public enum JSONReadError : ErrorType {
     case ValueNotFound(JSONPath)
     case BadValueType(JSONPath)
+    case TransformError(JSONPath, underlying : ErrorType)
     case CompositionError([JSONReadError])
 }
 
@@ -226,7 +227,14 @@ public struct JSONRead<T> {
     }
     
     func read(value : JSONValue) throws -> T {
-        return try self.transform(value.elementAtPath(self.path))
+        let value = value.elementAtPath(self.path)
+        do {
+            return try self.transform(value)
+        } catch let error as JSONReadError {
+            throw error
+        } catch {
+            throw JSONReadError.TransformError(value.path, underlying: error)
+        }
     }
     public func map<U>(t : T throws -> U) -> JSONRead<U> {
         return JSONRead<U>(path: self.path) { try t(self.transform($0)) }

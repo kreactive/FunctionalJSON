@@ -12,7 +12,7 @@ import Foundation
 public enum JSONFoundationTypesError : ErrorType {
     case BadURLFormat(String)
     case BadBase64Format(String)
-    case BadDateFormat(String,String)
+    case BadDateFormat(usedFormat : String, input : String)
 
 }
 private typealias Error = JSONFoundationTypesError
@@ -32,12 +32,16 @@ public extension NSData {
 
 
 public extension NSDate {
-    static let jsonReadTimestamp : JSONRead<NSDate> = Int64.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0))}
-    static let jsonReadTimestampMilli : JSONRead<NSDate> = Int64.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0)/1000.0)}
+    
+    //read double and integer values of timestamps (seconds from 1970)
+    static let jsonReadTimestamp : JSONRead<NSDate> = Double.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0))}
+    
+    //read double and integer values of millisecondes timestamps (millisecondes from 1970)
+    static let jsonReadTimestampMilli : JSONRead<NSDate> = Double.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0)/1000.0)}
 
     static func jsonRead(format : NSDateFormatter) -> JSONRead<NSDate> {
         return String.jsonRead.map { s in
-            try format.dateFromString(s) ?? {throw Error.BadDateFormat(format.dateFormat ?? "",s)}()
+            try format.dateFromString(s) ?? {throw Error.BadDateFormat(usedFormat : format.dateFormat ?? "",input :s)}()
         }
     }
 }
