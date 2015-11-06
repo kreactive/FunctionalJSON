@@ -80,7 +80,7 @@ class JSONFoundationTypesTests : XCTestCase {
         let json2 = try! jsonFromAny(["date" : source.timeIntervalSince1970])
         let date2 = try! json2.validate(JSONPath("date").read(NSDate.jsonReadTimestamp))
         
-        XCTAssertEqual(source.timeIntervalSince1970,date2.timeIntervalSince1970)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.000999999)
     }
     func testNSDateMilli() {
         let source = NSDate()
@@ -95,7 +95,7 @@ class JSONFoundationTypesTests : XCTestCase {
         let json2 = try! jsonFromAny(["date" : source.timeIntervalSince1970*1000])
         let date2 = try! json2.validate(JSONPath("date").read(NSDate.jsonReadTimestampMilli))
         
-        XCTAssertEqual(source.timeIntervalSince1970,date2.timeIntervalSince1970)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.000999999)
     }
     func testNSDateFormat() {
         let source = NSDate()

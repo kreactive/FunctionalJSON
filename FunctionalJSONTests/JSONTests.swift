@@ -62,4 +62,47 @@ class FunctionalJSONTests: XCTestCase {
         let nullJSON = try! jsonFromAny(NSArray())[0]
         XCTAssert(nullJSON.isEmpty)
     }
+    func testArrayNavigation() {
+        let json = try! jsonFromAny([1,2,3,[4,[5,6],7,8]])
+        XCTAssertEqual(try! json.validate(JSONPath(1).read(Int)), 2)
+        XCTAssertEqual(try! json.validate(JSONPath([3,0]).read(Int)), 4)
+        XCTAssertEqual(try! json.validate(JSONPath([3,1,1]).read(Int)), 6)
+        XCTAssertEqual(try! json.validate(JSONPath([3,2]).read(Int)), 7)
+        XCTAssertEqual(try! json.validate((JSONPath(3)+2).read(Int)), 7)
+
+        XCTAssertEqual(try! json.validate((JSONPath([3,1,2])+3).readOpt(Int)), nil)
+        XCTAssertEqual(json[[3,1,2]].validateOpt(Int), nil)
+
+    }
+    func testObjectNavigation() {
+        let json = try! jsonFromAny(["1" : 1,"2" : ["4" : ["5" : 6], "7" : 8]])
+        XCTAssertEqual(try! json.validate(JSONPath("1").read(Int)), 1)
+        XCTAssertEqual(try! json.validate(JSONPath(["2","7",]).read(Int)), 8)
+        XCTAssertEqual(try! json.validate((JSONPath(["2","4"])+"5").read(Int)), 6)
+        
+        XCTAssertEqual(try! json.validate((JSONPath(["2","4","Nop"])+"nopnop").readOpt(Int)), nil)
+        XCTAssertEqual(try! json.validate(JSONPath(["2","nop","Nop"]).readOpt(Int)), nil)
+
+        XCTAssertEqual(json[["2","nop","Nop"]].validateOpt(Int), nil)
+    }
+    func testMixedNavigation() {
+        let json = try! jsonFromAny([
+            "1" : [
+                1,
+                2,
+                3,
+                ["6" : 7]
+            ],
+            "8" : [
+                    ["10" : 11],13
+                ]
+            ])
+        
+        XCTAssertEqual(try! json.validate(JSONPath(["1",1]).read(Int)), 2)
+        XCTAssertEqual(try! json.validate(JSONPath(["1",3,"6"]).read(Int)), 7)
+        XCTAssertEqual(try! json.validate(JSONPath(["8",0,"10"]).read(Int)), 11)
+        XCTAssertEqual(try! json.validate(JSONPath(0).readOpt(Int)), nil)
+
+    }
+    
 }
