@@ -38,6 +38,11 @@
                BlueprintName = "FunctionalJSONTests"
                ReferencedContainer = "container:FunctionalJSON.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "PerformanceTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>
