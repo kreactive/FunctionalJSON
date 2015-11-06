@@ -209,11 +209,24 @@ public func +(lhs: JSONPath, rhs: String) -> JSONPath {
     return lhs+JSONPathComponent(rhs)
 }
 
-public enum JSONReadError : ErrorType {
+public enum JSONReadError : ErrorType , CustomDebugStringConvertible {
     case ValueNotFound(JSONPath)
     case BadValueType(JSONPath)
     case TransformError(JSONPath, underlying : ErrorType)
     case CompositionError([JSONReadError])
+    
+    public var debugDescription : String {
+        switch self {
+        case .ValueNotFound(let path):
+            return "JSON Value not found -> \"\(path)\""
+        case .BadValueType(let path):
+            return "JSON Bad value type -> \"\(path)\""
+        case .TransformError(let path, let error):
+            return "JSON Transform error -> \"\(path)\" : \(error)"
+        case .CompositionError(let errors):
+            return "JSON Composition Error :\n \(errors.map{"\t"+$0.debugDescription}.joinWithSeparator("\n"))"
+        }
+    }
 }
 
 public protocol JSONReadable {
