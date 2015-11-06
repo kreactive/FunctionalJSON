@@ -3,7 +3,7 @@
 //  AKAds
 //
 //  Created by Antoine Palazzolo on 19/10/15.
-//  Copyright © 2015 Kreactive. All rights reserved.
+//  
 //
 
 import Foundation

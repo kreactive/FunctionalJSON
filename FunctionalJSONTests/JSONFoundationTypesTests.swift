@@ -1,9 +1,9 @@
 //
 //  JSONFoundationTypesTests.swift
-//  FunctionalJSON
+//
 //
 //  Created by Antoine Palazzolo on 06/11/15.
-//  Copyright © 2015 Kreactive. All rights reserved.
+//  
 //
 
 import Foundation

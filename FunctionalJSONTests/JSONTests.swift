@@ -1,9 +1,9 @@
 //
-//  FunctionalJSONTests.swift
-//  FunctionalJSONTests
+//Tests.swift
+//Tests
 //
 //  Created by Antoine Palazzolo on 05/11/15.
-//  Copyright © 2015 Kreactive. All rights reserved.
+//  
 //
 
 import XCTest
