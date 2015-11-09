@@ -74,28 +74,28 @@ class JSONFoundationTypesTests : XCTestCase {
         //test int source
         let json = try! jsonFromAny(["date" : Int(source.timeIntervalSince1970)])
         let date = try! json.validate(JSONPath("date").read(NSDate.jsonReadTimestamp))
-        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970, date.timeIntervalSince1970, accuracy: 0.9999)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970, date.timeIntervalSince1970, accuracy: 0.9999999999)
         
         //test double source
         let json2 = try! jsonFromAny(["date" : source.timeIntervalSince1970])
         let date2 = try! json2.validate(JSONPath("date").read(NSDate.jsonReadTimestamp))
         
-        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.001)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.000999999)
     }
     func testNSDateMilli() {
         let source = NSDate()
         
         //test int source
-        let json = try! jsonFromAny(["date" : Int(source.timeIntervalSince1970*1000)])
+        let json = try! jsonFromAny(["date" : NSNumber(longLong: Int64(source.timeIntervalSince1970*1000))])
         let date = try! json.validate(JSONPath("date").read(NSDate.jsonReadTimestampMilli))
         print(source.timeIntervalSince1970, date.timeIntervalSince1970)
-        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970, date.timeIntervalSince1970, accuracy: 0.001)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970, date.timeIntervalSince1970, accuracy: 0.000999999)
         
         //test double source
         let json2 = try! jsonFromAny(["date" : source.timeIntervalSince1970*1000])
         let date2 = try! json2.validate(JSONPath("date").read(NSDate.jsonReadTimestampMilli))
         
-        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.001)
+        XCTAssertEqualWithAccuracy(source.timeIntervalSince1970,date2.timeIntervalSince1970,accuracy: 0.000999999)
     }
     func testNSDateFormat() {
         let source = NSDate()
