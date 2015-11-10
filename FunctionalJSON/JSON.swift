@@ -9,7 +9,7 @@
 import Foundation
 import FunctionalBuilder
 
-public struct JSONValue {
+public struct JSONValue : JSONReadable {
     let underlying : AnyObject?
     let path : JSONPath
     public init(data : NSData) throws {
@@ -21,6 +21,7 @@ public struct JSONValue {
         self.underlying = underlying
         self.path = path
     }
+    public static let jsonRead = JSONRead(transform:{$0})
     
     public var isEmpty : Bool {
         switch self.underlying {
@@ -138,6 +139,9 @@ public struct JSONPath : CustomStringConvertible, Equatable {
     }
     public mutating func append(path : JSONPath) {
         self.content += path.content
+    }
+    public func read() -> JSONRead<JSONValue> {
+        return self.read(JSONValue)
     }
     public func read<T>(rds: JSONRead<T>) -> JSONRead<T> {
         return JSONRead<T>(path: self, source: rds)

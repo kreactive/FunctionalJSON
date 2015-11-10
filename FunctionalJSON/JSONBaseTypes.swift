@@ -83,14 +83,31 @@ public extension Array {
     }
 }
 public extension Array where Element : JSONReadable {
-    public static func jsonRead(v : Element.Type) -> JSONRead<[Element]> {
-        return self.jsonRead(v.jsonRead)
+    public static func jsonRead() -> JSONRead<[Element]> {
+        return self.jsonRead(Element.jsonRead)
     }
-    public static func jsonReadOpt(v : Element.Type) -> JSONRead<[Element?]> {
-        return self.jsonReadOpt(v.jsonRead)
+    public static func jsonReadOpt() -> JSONRead<[Element?]> {
+        return self.jsonReadOpt(Element.jsonRead)
     }
-    public static func jsonReadOptFlat(v : Element.Type) -> JSONRead<[Element]> {
-        return self.jsonReadOptFlat(v.jsonRead)
+    public static func jsonReadOptFlat() -> JSONRead<[Element]> {
+        return self.jsonReadOptFlat(Element.jsonRead)
+    }
+}
+
+public extension JSONValue {
+    public func validate<T : JSONReadable>(v : [T].Type) throws -> [T] {
+        return try self.validate(v.jsonRead())
+    }
+    public func validateOpt<T : JSONReadable>(v : [T].Type) -> [T]? {
+        return self.validateOpt(v.jsonRead())
+    }
+}
+public extension JSONPath {
+    public func read<T: JSONReadable>(v : [T].Type) -> JSONRead<[T]> {
+        return self.read(v.jsonRead())
+    }
+    public func readOpt<T: JSONReadable>(v : [T].Type) -> JSONRead<[T]?> {
+        return self.readOpt(v.jsonRead())
     }
 }
 

@@ -51,7 +51,7 @@ class PerformanceTests : XCTestCase {
     func testReadPerf() {
         let json = try! jsonFromAny(self.source)
         self.measureBlock {
-            try! json.validate(Array.jsonRead(Foo))
+            try! json.validate([Foo].jsonRead())
         }
     }
     func testReadPerfManual() {

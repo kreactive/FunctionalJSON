@@ -63,12 +63,12 @@ class JSONBaseTypeTest: XCTestCase {
         XCTAssertEqual(try! jsonFromAny(3.0).validate(Double),3)
         XCTAssertEqual(try! jsonFromAny("coucou").validate(String),"coucou")
         
-        XCTAssertEqual(try! jsonFromAny(["coucou","coucou2"]).validate(Array.jsonRead(String)), ["coucou","coucou2"])
+        XCTAssertEqual(try! jsonFromAny(["coucou","coucou2"]).validate([String]), ["coucou","coucou2"])
     }
     func testArrayRead() {
         let source = ["string1","string2","string3"]
         let uniformJSON = try! jsonFromAny(source)
-        let result = try! uniformJSON.validate(Array.jsonRead(String))
+        let result = try! uniformJSON.validate([String])
         XCTAssertGreaterThan(result.count, 0)
         XCTAssertEqual(result.count, source.count)
         XCTAssertEqual(result, ["string1","string2","string3"])
@@ -106,7 +106,7 @@ class JSONBaseTypeTest: XCTestCase {
     func testArrayReadOpt() {
         let source = ["string1","string2",43,"string3"]
         let nonUniformJSON = try! jsonFromAny(source)
-        let result = try! nonUniformJSON.validate(Array.jsonReadOpt(String))
+        let result = try! nonUniformJSON.validate([String].jsonReadOpt())
         XCTAssertGreaterThan(result.count, 0)
         XCTAssertEqual(result.count, source.count)
         
@@ -117,7 +117,7 @@ class JSONBaseTypeTest: XCTestCase {
     func testArrayReadOptFlat() {
         
         let nonUniformJSON = try! jsonFromAny(["string1","string2",43,"string3"])
-        let result = try! nonUniformJSON.validate(Array.jsonReadOptFlat(String))
+        let result = try! nonUniformJSON.validate([String].jsonReadOptFlat())
         let compare = ["string1","string2","string3"]
         XCTAssertGreaterThan(result.count, 0)
         XCTAssertEqual(result, compare)
@@ -127,7 +127,7 @@ class JSONBaseTypeTest: XCTestCase {
         let json = try! jsonFromAny(["array" : ["string1","string2",43,"string3"]])
         
         do {
-            try json.validate(Array.jsonRead(String))
+            try json.validate([String])
             XCTFail("should fail with bad type error")
         } catch {
             guard case JSONReadError.BadValueType(let path) = error else {
@@ -138,7 +138,7 @@ class JSONBaseTypeTest: XCTestCase {
         }
         
         do {
-            try json.validate(JSONPath(["arrays"]).read(Array.jsonRead(String)))
+            try json.validate(JSONPath(["arrays"]).read([String]))
             XCTFail("should fail with value not found")
         } catch {
             guard case JSONReadError.ValueNotFound(let path) = error else {

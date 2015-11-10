@@ -46,13 +46,13 @@ class JSONCompositionTests : XCTestCase {
         let readProp4 = JSONRead(
             JSONPath("prop1").read(Bool) <&>
             JSONPath("prop2").read(String) <&>
-            JSONPath("prop3").read(Array.jsonRead(Int)).map {$0.reduce(0, combine: +)}
+            JSONPath("prop3").read([Int].jsonRead()).map {$0.reduce(0, combine: +)}
         )
         let readProp5 = Array.jsonRead(JSONRead(JSONPath("p1").read(Int) <&> JSONPath("p2").readOpt(Bool)))
         
         let finalRead = JSONRead(
             JSONPath("prop1").read(Int) <&>
-            JSONPath("prop2").read(Array.jsonRead(String)).map {$0.joinWithSeparator(" ")} <&>
+            JSONPath("prop2").read([String]).map {$0.joinWithSeparator(" ")} <&>
             JSONPath("prop3").read(NSURL.jsonRead) <&>
             JSONPath("prop4").read(readProp4) <&>
             JSONPath("prop5").read(readProp5) <&>
@@ -90,7 +90,7 @@ class JSONCompositionTests : XCTestCase {
         let subRead = JSONPath("p1").read(String)
         let finalRead = JSONRead(
             JSONPath("prop1").read(String) <&>
-            JSONPath(["prop2","madness"]).read(Array.jsonRead(String)) <&>
+            JSONPath(["prop2","madness"]).read([String]) <&>
             JSONPath("prop3").read(NSURL.jsonRead) <&>
             JSONPath(["prop3",0,"coucou"]).read(NSURL.jsonRead) <&>
             JSONPath("prop4").read(subRead) <&>
