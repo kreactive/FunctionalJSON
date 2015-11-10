@@ -145,4 +145,5 @@ class JSONCompositionTests : XCTestCase {
             XCTFail("should be a composition error, \(error)")
         }
     }
+    
 }

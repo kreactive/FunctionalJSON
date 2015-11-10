@@ -138,6 +138,11 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertNotEqual(path1, path3)
         XCTAssertNotEqual(path2, path3)
     }
+    func testPathComponentBuild() {
+        let path1 : JSONPath = [JSONPathComponent("1"),JSONPathComponent(0)]
+        XCTAssertEqual(path1, JSONPath(["1",0]))
+    }
+    
     func testPathDescription() {
         let path1 : JSONPath = "part1"+"part2"+"part3"
         XCTAssertNotNil(path1.description)
@@ -148,5 +153,52 @@ class FunctionalJSONTests: XCTestCase {
         let path3 : JSONPath = "part12"+"part2"+0+"part3"
         XCTAssertNotNil(path3.description)
         
+    }
+    func testToOpt() {
+        let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
+        
+        XCTAssertNil(json["1"].validateOpt(String))
+        XCTAssertNotNil(json["1"].validateOpt(Int))
+        
+        XCTAssertNil(try! json.validate(JSONPath("1").readOpt(String)))
+        XCTAssertNotNil(try! json.validate(JSONPath("1").readOpt(Int)))
+
+        XCTAssertNil(json["1"].validateOpt([String]))
+        XCTAssertNotNil(json["2"].validateOpt([Int]))
+
+        XCTAssertNil(try! json.validate(JSONPath("1").readOpt([String])))
+        XCTAssertNotNil(try! json.validate(JSONPath("2").readOpt([Int])))
+    }
+    func testReadJSONValue() {
+        let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
+        let value = try! json.validate(JSONPath("2").read())
+        XCTAssertTrue(value.underlying is Array<Int>)
+    }
+    
+    func testDebugDescription() {
+        let json1 = try! jsonFromAny([1])
+        do {
+            try json1[0].validate(String)
+        } catch let error as JSONReadError {
+            error.debugDescription
+        } catch {
+            XCTFail("")
+        }
+        
+        do {
+            try json1.validate(JSONPath("0").read(String) <&> JSONPath("2").read(JSONPath("0").read(Int) <&> JSONPath("0").read(Int)))
+        } catch let error as JSONReadError {
+            error.debugDescription
+        } catch {
+            XCTFail("")
+        }
+        
+        do {
+            try json1.validate(JSONPath(0).read(Int).map({_ -> String in throw NSError(domain: "", code: 0, userInfo: nil)}))
+        } catch let error as JSONReadError {
+            error.debugDescription
+        } catch {
+            XCTFail("")
+        }
     }
 }

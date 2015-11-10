@@ -148,4 +148,10 @@ class JSONBaseTypeTest: XCTestCase {
             XCTAssertEqual(path, JSONPath(["arrays"]))
         }
     }
+    func testArrayJSONValue() {
+        let source = ["string1","string2","string3"]
+        let json = try! jsonFromAny(source)
+        let array = try! json.validate([JSONValue]).map{try $0.validate(String)}
+        XCTAssertEqual(array, source)
+    }
 }
