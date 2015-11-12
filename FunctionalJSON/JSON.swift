@@ -67,18 +67,11 @@ public struct JSONValue : JSONReadable {
     public func validate<T>(rds : JSONRead<T>) throws -> T {
         return try rds.read(self)
     }
-    public func validateOpt<T>(rds : JSONRead<T>) -> T? {
-        do {
-            return try self.validate(rds)
-        } catch {
-            return nil
-        }
-    }
     public func validate<T : JSONReadable>(_ : T.Type) throws -> T {
         return try self.validate(T.jsonRead)
     }
-    public func validateOpt<T : JSONReadable>(_ : T.Type) -> T? {
-        return self.validateOpt(T.jsonRead)
+    public func validate<T : JSONReadable>(_ : Optional<T>.Type) throws -> T? {
+        return try self.validate(T.jsonRead.optional)
     }
 }
 
@@ -146,14 +139,11 @@ public struct JSONPath : CustomStringConvertible, Equatable {
     public func read<T>(rds: JSONRead<T>) -> JSONRead<T> {
         return JSONRead<T>(path: self, source: rds)
     }
-    public func readOpt<T>(rds: JSONRead<T>) -> JSONRead<T?> {
-        return JSONRead<T>(path: self, source: rds).toOpt()
-    }
     public func read<T: JSONReadable>(_ : T.Type) -> JSONRead<T> {
         return self.read(T.jsonRead)
     }
-    public func readOpt<T: JSONReadable>(_ : T.Type) -> JSONRead<T?> {
-        return self.readOpt(T.jsonRead)
+    public func read<T: JSONReadable>(_ : T?.Type) -> JSONRead<T?> {
+        return self.read(T.jsonRead.optional)
     }
 }
 extension JSONPath : StringLiteralConvertible {
@@ -275,7 +265,7 @@ public struct JSONRead<T> {
     public func map<U>(t : T throws -> U) -> JSONRead<U> {
         return JSONRead<U>(path: self.path) { try t(self.transform($0)) }
     }
-    public func toOpt() -> JSONRead<T?> {
+    public var optional : JSONRead<T?> {
         return JSONRead<T?>(path: self.path) { json -> T? in
             do {
                 return try self.transform(json)

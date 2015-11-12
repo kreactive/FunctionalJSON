@@ -22,7 +22,7 @@ class PerformanceTests : XCTestCase {
         let prop3 : Int?
         let prop4 : Bool
         
-        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").readOpt(Int) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
+        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").read(Int?) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
     }
     
     let source : [AnyObject] = {

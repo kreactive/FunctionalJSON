@@ -48,7 +48,7 @@ class JSONCompositionTests : XCTestCase {
             JSONPath("prop2").read(String) <&>
             JSONPath("prop3").read([Int].jsonRead()).map {$0.reduce(0, combine: +)}
         )
-        let readProp5 = Array.jsonRead(JSONRead(JSONPath("p1").read(Int) <&> JSONPath("p2").readOpt(Bool)))
+        let readProp5 = Array.jsonRead(JSONRead(JSONPath("p1").read(Int) <&> JSONPath("p2").read(Bool?)))
         
         let finalRead = JSONRead(
             JSONPath("prop1").read(Int) <&>
@@ -67,11 +67,8 @@ class JSONCompositionTests : XCTestCase {
         XCTAssertEqual(1+2+3+4, ret.3.2)
         
         
-        let otherRead = JSONPath("prop7").readOpt(JSONPath("p1").read(Int) <&> JSONPath("p2").read(String))
+        let otherRead = JSONPath("prop7").read(JSONPath("p1").read(Int) <&> JSONPath("p2").read(String)).optional
         XCTAssert(try! json.validate(otherRead) == nil)
-        
-        let readOpt = json["prop7"].validateOpt(JSONPath("p1").read(Int) <&> JSONPath("p2").read(String))
-        XCTAssert(readOpt == nil)
         
         let readOpt2 = try? json["prop7"].validate(JSONPath("p1").read(Int) <&> JSONPath("p2").read(String))
         XCTAssert(readOpt2 == nil)

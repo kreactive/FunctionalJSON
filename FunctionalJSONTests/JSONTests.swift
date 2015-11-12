@@ -30,7 +30,7 @@ class FunctionalJSONTests: XCTestCase {
         let prop3 : Int?
         let prop4 : Bool
         
-        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").readOpt(Int) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
+        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").read(Int?) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
     }
     
     func testParseBasic() {
@@ -70,8 +70,8 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertEqual(try! json.validate(JSONPath([3,2]).read(Int)), 7)
         XCTAssertEqual(try! json.validate((JSONPath(3)+2).read(Int)), 7)
 
-        XCTAssertEqual(try! json.validate((JSONPath([3,1,2])+3).readOpt(Int)), nil)
-        XCTAssertEqual(json[[3,1,2]].validateOpt(Int), nil)
+        XCTAssertEqual(try! json.validate((JSONPath([3,1,2])+3).read(Int?)), nil)
+        XCTAssertEqual(try! json[[3,1,2]].validate(Int?), nil)
 
     }
     func testObjectNavigation() {
@@ -80,10 +80,10 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertEqual(try! json.validate(JSONPath(["2","7",]).read(Int)), 8)
         XCTAssertEqual(try! json.validate((JSONPath(["2","4"])+"5").read(Int)), 6)
         
-        XCTAssertEqual(try! json.validate((JSONPath(["2","4","Nop"])+"nopnop").readOpt(Int)), nil)
-        XCTAssertEqual(try! json.validate(JSONPath(["2","nop","Nop"]).readOpt(Int)), nil)
+        XCTAssertEqual(try! json.validate((JSONPath(["2","4","Nop"])+"nopnop").read(Int?)), nil)
+        XCTAssertEqual(try! json.validate(JSONPath(["2","nop","Nop"]).read(Int?)), nil)
 
-        XCTAssertEqual(json[["2","nop","Nop"]].validateOpt(Int), nil)
+        XCTAssertEqual(try! json[["2","nop","Nop"]].validate(Int?), nil)
     }
     func testMixedNavigation() {
         let json = try! jsonFromAny([
@@ -101,7 +101,7 @@ class FunctionalJSONTests: XCTestCase {
         XCTAssertEqual(try! json.validate(JSONPath(["1",1]).read(Int)), 2)
         XCTAssertEqual(try! json.validate(JSONPath(["1",3,"6"]).read(Int)), 7)
         XCTAssertEqual(try! json.validate(JSONPath(["8",0,"10"]).read(Int)), 11)
-        XCTAssertEqual(try! json.validate(JSONPath(0).readOpt(Int)), nil)
+        XCTAssertEqual(try! json.validate(JSONPath(0).read(Int?)), nil)
 
     }
     func testPathBuild() {
@@ -157,17 +157,17 @@ class FunctionalJSONTests: XCTestCase {
     func testToOpt() {
         let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
         
-        XCTAssertNil(json["1"].validateOpt(String))
-        XCTAssertNotNil(json["1"].validateOpt(Int))
+        XCTAssertNil(try! json["1"].validate(String?))
+        XCTAssertNotNil(try! json["1"].validate(Int?))
         
-        XCTAssertNil(try! json.validate(JSONPath("1").readOpt(String)))
-        XCTAssertNotNil(try! json.validate(JSONPath("1").readOpt(Int)))
+        XCTAssertNil(try! json.validate(JSONPath("1").read(String?)))
+        XCTAssertNotNil(try! json.validate(JSONPath("1").read(Int?)))
 
-        XCTAssertNil(json["1"].validateOpt([String]))
-        XCTAssertNotNil(json["2"].validateOpt([Int]))
+        XCTAssertNil(try! json["1"].validate([String]?))
+        XCTAssertNotNil(try! json["2"].validate([Int]?))
 
-        XCTAssertNil(try! json.validate(JSONPath("1").readOpt([String])))
-        XCTAssertNotNil(try! json.validate(JSONPath("2").readOpt([Int])))
+        XCTAssertNil(try! json.validate(JSONPath("1").read([String]?)))
+        XCTAssertNotNil(try! json.validate(JSONPath("2").read([Int]?)))
     }
     func testReadJSONValue() {
         let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])

@@ -98,16 +98,16 @@ public extension JSONValue {
     public func validate<T : JSONReadable>(v : [T].Type) throws -> [T] {
         return try self.validate(v.jsonRead())
     }
-    public func validateOpt<T : JSONReadable>(v : [T].Type) -> [T]? {
-        return self.validateOpt(v.jsonRead())
+    public func validate<T : JSONReadable>(v : [T]?.Type) throws -> [T]? {
+        return try self.validate([T].jsonRead().optional)
     }
 }
 public extension JSONPath {
     public func read<T: JSONReadable>(v : [T].Type) -> JSONRead<[T]> {
         return self.read(v.jsonRead())
     }
-    public func readOpt<T: JSONReadable>(v : [T].Type) -> JSONRead<[T]?> {
-        return self.readOpt(v.jsonRead())
+    public func read<T: JSONReadable>(v : [T]?.Type) -> JSONRead<[T]?> {
+        return self.read([T].jsonRead().optional)
     }
 }
 
