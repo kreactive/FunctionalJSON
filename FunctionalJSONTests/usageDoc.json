@@ -1,0 +1,19 @@
+{
+    "customers" : [
+                   {
+                   "name" : "alice",
+                   "age" : 20,
+                   "transactions" : [{"id" : 21312},{"id" : 32414},{"id" : 23443}]
+                   },
+                   {
+                   "name" : "bob",
+                   "transactions" : []
+                   },
+                   {
+                   "name" : "chris",
+                   "age" : 34,
+                   "transactions" : [{"id" : 23455},{"id" : 23452}]
+                   }
+                   
+                   ] 
+}

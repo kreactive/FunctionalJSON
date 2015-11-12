@@ -46,22 +46,22 @@ class JSONBaseTypeTest: XCTestCase {
     
     
     func testBaseTypes() {
-        XCTAssertEqual(try! jsonFromAny(3).validate(Int),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(Int8),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(Int16),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(Int32),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(Int64),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(Int),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(Int8),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(Int16),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(Int32),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(Int64),3)
         
-        XCTAssertEqual(try! jsonFromAny(3).validate(UInt),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(UInt8),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(UInt16),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(UInt32),3)
-        XCTAssertEqual(try! jsonFromAny(3).validate(UInt64),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(UInt),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(UInt8),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(UInt16),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(UInt32),3)
+        XCTAssertEqual(try! jsonFromAny([3])[0].validate(UInt64),3)
         
-        XCTAssertEqual(try! jsonFromAny(true).validate(Bool),true)
-        XCTAssertEqual(try! jsonFromAny(3.0).validate(Float),3.0)
-        XCTAssertEqual(try! jsonFromAny(3.0).validate(Double),3)
-        XCTAssertEqual(try! jsonFromAny("coucou").validate(String),"coucou")
+        XCTAssertEqual(try! jsonFromAny([true])[0].validate(Bool),true)
+        XCTAssertEqual(try! jsonFromAny([3.0])[0].validate(Float),3.0)
+        XCTAssertEqual(try! jsonFromAny([3.0])[0].validate(Double),3)
+        XCTAssertEqual(try! jsonFromAny(["coucou"])[0].validate(String),"coucou")
         
         XCTAssertEqual(try! jsonFromAny(["coucou","coucou2"]).validate([String]), ["coucou","coucou2"])
     }
@@ -130,7 +130,12 @@ class JSONBaseTypeTest: XCTestCase {
             try json.validate([String])
             XCTFail("should fail with bad type error")
         } catch {
-            guard case JSONReadError.BadValueType(let path) = error else {
+            guard let error = error as? JSONValidationError else {
+                XCTFail("should always return JSONValidationError")
+                return
+            }
+            
+            guard case JSONReadError.BadValueType(let path) = error.content.first! else {
                 XCTFail("bad error type, should be bad type, is \(error)")
                 return
             }
@@ -141,7 +146,12 @@ class JSONBaseTypeTest: XCTestCase {
             try json.validate(JSONPath(["arrays"]).read([String]))
             XCTFail("should fail with value not found")
         } catch {
-            guard case JSONReadError.ValueNotFound(let path) = error else {
+            guard let error = error as? JSONValidationError else {
+                XCTFail("should always return JSONValidationError")
+                return
+            }
+            
+            guard case JSONReadError.ValueNotFound(let path) = error.content.first! else {
                 XCTFail("bad error type, should be not found, is \(error)")
                 return
             }

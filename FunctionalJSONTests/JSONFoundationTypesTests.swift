@@ -38,7 +38,12 @@ class JSONFoundationTypesTests : XCTestCase {
             let url = try json.validate(JSONPath("url").read(NSURL.jsonRead))
             XCTFail("should throw error, \(url)")
         } catch {
-            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadURLFormat(let url)) = error else {
+            guard let error = error as? JSONValidationError else {
+                XCTFail("should always return JSONValidationError")
+                return
+            }
+            
+            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadURLFormat(let url)) = error.content.first! else {
                 XCTFail("bad error type, should be not found, is \(error)")
                 return
             }
@@ -60,7 +65,11 @@ class JSONFoundationTypesTests : XCTestCase {
             let data = try json.validate(JSONPath(["data",0]).read(NSData.jsonReadBase64))
             XCTFail("should throw error, \(data)")
         } catch {
-            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadBase64Format(let baseBase64)) = error else {
+            guard let error = error as? JSONValidationError else {
+                XCTFail("should always return JSONValidationError")
+                return
+            }
+            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadBase64Format(let baseBase64)) = error.content.first! else {
                 XCTFail("bad error type, should be not found, is \(error)")
                 return
             }
@@ -116,7 +125,12 @@ class JSONFoundationTypesTests : XCTestCase {
             let date = try json.validate(JSONPath("date").read(NSDate.jsonRead(format)))
             XCTFail("should throw error, \(date)")
         } catch {
-            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadDateFormat(let format, let input)) = error else {
+            guard let error = error as? JSONValidationError else {
+                XCTFail("should always return JSONValidationError")
+                return
+            }
+            
+            guard case JSONReadError.TransformError(let path, underlying: JSONFoundationTypesError.BadDateFormat(let format, let input)) = error.content.first! else {
                 XCTFail("bad error type, should be not found, is \(error)")
                 return
             }

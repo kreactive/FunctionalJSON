@@ -185,7 +185,7 @@ class FunctionalJSONTests: XCTestCase {
         let json1 = try! jsonFromAny([1])
         do {
             try json1[0].validate(String)
-        } catch let error as JSONReadError {
+        } catch let error as JSONValidationError {
             error.debugDescription
         } catch {
             XCTFail("")
@@ -193,7 +193,7 @@ class FunctionalJSONTests: XCTestCase {
         
         do {
             try json1.validate(JSONPath("0").read(String) <&> JSONPath("2").read(JSONPath("0").read(Int) <&> JSONPath("0").read(Int)))
-        } catch let error as JSONReadError {
+        } catch let error as JSONValidationError {
             error.debugDescription
         } catch {
             XCTFail("")
@@ -201,7 +201,7 @@ class FunctionalJSONTests: XCTestCase {
         
         do {
             try json1.validate(JSONPath(0).read(Int).map({_ -> String in throw NSError(domain: "", code: 0, userInfo: nil)}))
-        } catch let error as JSONReadError {
+        } catch let error as JSONValidationError {
             error.debugDescription
         } catch {
             XCTFail("")

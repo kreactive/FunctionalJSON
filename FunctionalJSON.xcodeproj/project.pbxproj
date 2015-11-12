@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7116AD1C1BF490EA00CCCA73 /* DocumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116AD1B1BF490EA00CCCA73 /* DocumentationTests.swift */; };
+		7116AD1E1BF4911600CCCA73 /* usageDoc.json in Resources */ = {isa = PBXBuildFile; fileRef = 7116AD1D1BF4911600CCCA73 /* usageDoc.json */; };
 		71264A181BEBA44B00D13BD7 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71264A171BEBA44B00D13BD7 /* JSONTests.swift */; };
 		71264A1A1BEBA44B00D13BD7 /* FunctionalJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71456DF91BEA74FE002E5D99 /* FunctionalJSON.framework */; };
 		71456DFD1BEA74FE002E5D99 /* FunctionalJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 71456DFC1BEA74FE002E5D99 /* FunctionalJSON.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -21,6 +23,7 @@
 		717CA7D21BEBD0FD00BBB163 /* JSONBaseTypeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTests.swift */; };
 		717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D31BEBD15A00BBB163 /* TestUtils.swift */; };
 		717CA7D61BEC916D00BBB163 /* JSONFoundationTypesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717CA7D51BEC916D00BBB163 /* JSONFoundationTypesTests.swift */; };
+		71DD00531BF49A3D00F11653 /* validationDoc.json in Resources */ = {isa = PBXBuildFile; fileRef = 71DD00521BF49A3D00F11653 /* validationDoc.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7116AD1B1BF490EA00CCCA73 /* DocumentationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentationTests.swift; sourceTree = "<group>"; };
+		7116AD1D1BF4911600CCCA73 /* usageDoc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usageDoc.json; sourceTree = "<group>"; };
 		71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalJSONTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		71264A171BEBA44B00D13BD7 /* JSONTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONTests.swift; sourceTree = "<group>"; };
 		71264A191BEBA44B00D13BD7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +55,7 @@
 		717CA7D11BEBD0FD00BBB163 /* JSONBaseTypeTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONBaseTypeTests.swift; sourceTree = "<group>"; };
 		717CA7D31BEBD15A00BBB163 /* TestUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtils.swift; sourceTree = "<group>"; };
 		717CA7D51BEC916D00BBB163 /* JSONFoundationTypesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONFoundationTypesTests.swift; sourceTree = "<group>"; };
+		71DD00521BF49A3D00F11653 /* validationDoc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = validationDoc.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +87,11 @@
 				717CA7D51BEC916D00BBB163 /* JSONFoundationTypesTests.swift */,
 				71501DD11BECE69400541CBE /* JSONCompositionTests.swift */,
 				71501DD31BECF63100541CBE /* PerformancesTests.swift */,
-				71264A191BEBA44B00D13BD7 /* Info.plist */,
+				7116AD1B1BF490EA00CCCA73 /* DocumentationTests.swift */,
 				717CA7D31BEBD15A00BBB163 /* TestUtils.swift */,
+				71264A191BEBA44B00D13BD7 /* Info.plist */,
+				7116AD1D1BF4911600CCCA73 /* usageDoc.json */,
+				71DD00521BF49A3D00F11653 /* validationDoc.json */,
 			);
 			path = FunctionalJSONTests;
 			sourceTree = "<group>";
@@ -219,6 +228,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7116AD1E1BF4911600CCCA73 /* usageDoc.json in Resources */,
+				71DD00531BF49A3D00F11653 /* validationDoc.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,6 +269,7 @@
 				71501DD41BECF63100541CBE /* PerformancesTests.swift in Sources */,
 				717CA7D41BEBD15A00BBB163 /* TestUtils.swift in Sources */,
 				717CA7D61BEC916D00BBB163 /* JSONFoundationTypesTests.swift in Sources */,
+				7116AD1C1BF490EA00CCCA73 /* DocumentationTests.swift in Sources */,
 				71264A181BEBA44B00D13BD7 /* JSONTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

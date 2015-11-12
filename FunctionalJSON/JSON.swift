@@ -207,7 +207,6 @@ public enum JSONReadError : ErrorType , CustomDebugStringConvertible {
     case ValueNotFound(JSONPath)
     case BadValueType(JSONPath)
     case TransformError(JSONPath, underlying : ErrorType)
-    case CompositionError([JSONReadError])
     
     public var debugDescription : String {
         switch self {
@@ -217,11 +216,40 @@ public enum JSONReadError : ErrorType , CustomDebugStringConvertible {
             return "JSON Bad value type -> \"\(path)\""
         case .TransformError(let path, let error):
             return "JSON Transform error -> \"\(path)\" : \(error)"
-        case .CompositionError(let errors):
-            return "JSON Composition Error :\n \(errors.map{"\t"+$0.debugDescription}.joinWithSeparator("\n"))"
         }
     }
 }
+
+public struct JSONValidationError : ErrorType,CustomDebugStringConvertible {
+    public var content : [JSONReadError]
+    init() {
+        content = []
+    }
+    init(_ readError : JSONReadError) {
+        content = [readError]
+    }
+    init(_ composeError : ComposeError) {
+        var ret = JSONValidationError()
+        composeError.underlyingErrors.forEach {ret.append($0)}
+        self = ret
+    }
+    mutating func append(error : ErrorType) {
+        switch error {
+        case let x as JSONReadError:
+            content.append(x)
+        case let x as JSONValidationError:
+            content.appendContentsOf(x.content)
+        case let x as ComposeError:
+            x.underlyingErrors.forEach {self.append($0)}
+        default:
+            fatalError("unknown error type")
+        }
+    }
+    public var debugDescription : String {
+        return "JSON Errors :\n\(content.map{"\t"+$0.debugDescription}.joinWithSeparator("\n"))"
+    }
+}
+
 
 public protocol JSONReadable {
     static var jsonRead : JSONRead<Self> {get}
@@ -239,27 +267,18 @@ public struct JSONRead<T> {
     init(path :JSONPath = JSONPath([]), source : JSONRead<T>) {
         self.init(path: path+source.path, transform : source.transform)
     }
-    
     func read(value : JSONValue) throws -> T {
         let value = value.elementAtPath(self.path)
         do {
             return try self.transform(value)
-        } catch let error as JSONReadError {
-            throw error
-        } catch ComposeError.Error(let errors) {
-            let errors = errors.map { err -> [JSONReadError] in
-                switch err {
-                case JSONReadError.CompositionError(let errors):
-                    return errors
-                case let x as JSONReadError:
-                    return [x]
-                default:
-                    return [JSONReadError.TransformError(value.path, underlying: err)]
-                }
-            }.flatMap{$0}
-            throw JSONReadError.CompositionError(errors)
+        } catch let x as JSONValidationError {
+            throw x
+        } catch let x as JSONReadError {
+            throw JSONValidationError(x)
+        } catch let x as ComposeError {
+            throw JSONValidationError(x)
         } catch {
-            throw JSONReadError.TransformError(value.path, underlying: error)
+            throw JSONValidationError(JSONReadError.TransformError(value.path, underlying: error))
         }
     }
     public func map<U>(t : T throws -> U) -> JSONRead<U> {

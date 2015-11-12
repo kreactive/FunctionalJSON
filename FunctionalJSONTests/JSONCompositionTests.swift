@@ -96,7 +96,8 @@ class JSONCompositionTests : XCTestCase {
         
         do {
             try json.validate(finalRead)
-        } catch JSONReadError.CompositionError(let errors) {
+        } catch let x as JSONValidationError  {
+            let errors = x.content
             if case JSONReadError.BadValueType(let path) = errors[0] {
                 XCTAssertEqual(path, JSONPath("prop1"))
             } else {
@@ -141,6 +142,31 @@ class JSONCompositionTests : XCTestCase {
         } catch {
             XCTFail("should be a composition error, \(error)")
         }
+    }
+    func testArrayError() {
+        let json = try! jsonFromAny([["id" : "34233"], ["identifier" : 34233]])
+        let read = JSONPath("id").read(Int)
+        do {
+            try json.validate(Array.jsonRead(read))
+        } catch let x as JSONValidationError {
+            let errors = x.content
+            XCTAssertEqual(x.content.count, 2)
+            
+            if case JSONReadError.BadValueType(let path) = errors[0] {
+                XCTAssertEqual(path, JSONPath([0,"id"]))
+            } else {
+                XCTFail("should be a BadValueType error \(errors[1])")
+            }
+            
+            if case JSONReadError.ValueNotFound(let path) = errors[1] {
+                XCTAssertEqual(path, JSONPath([1,"id"]))
+            } else {
+                XCTFail("should be a ValueNotFound error \(errors[1])")
+            }
+        } catch {
+            XCTFail("should be a CompositionError error \(error)")
+        }
+
     }
     
 }

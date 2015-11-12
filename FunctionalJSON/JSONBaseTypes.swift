@@ -73,7 +73,22 @@ public extension Array {
         }
     }
     public static func jsonRead(rds : JSONRead<Element>) -> JSONRead<[Element]> {
-        return self.jsonReadValues().map {try $0.map(rds.read)}
+        return self.jsonReadValues().map {
+            var validationError = JSONValidationError()
+            var resultAccumulator = [Element]()
+            for jsonValue in $0 {
+                do {
+                    try resultAccumulator.append(rds.read(jsonValue))
+                } catch {
+                    validationError.append(error)
+                }
+            }
+            if validationError.content.count > 0 {
+                throw validationError
+            } else {
+                return resultAccumulator
+            }
+        }
     }
     public static func jsonReadOpt(rds : JSONRead<Element>) -> JSONRead<[Element?]> {
         return self.jsonReadValues().map { $0.map {try? rds.read($0)}}
@@ -101,6 +116,9 @@ public extension JSONValue {
     public func validate<T : JSONReadable>(v : [T]?.Type) throws -> [T]? {
         return try self.validate([T].jsonRead().optional)
     }
+    public func validate<T : JSONReadable>(v : [T?].Type) throws -> [T?] {
+        return try self.validate([T].jsonReadOpt())
+    }
 }
 public extension JSONPath {
     public func read<T: JSONReadable>(v : [T].Type) -> JSONRead<[T]> {
@@ -108,6 +126,9 @@ public extension JSONPath {
     }
     public func read<T: JSONReadable>(v : [T]?.Type) -> JSONRead<[T]?> {
         return self.read([T].jsonRead().optional)
+    }
+    public func read<T: JSONReadable>(v : [T?].Type) -> JSONRead<[T?]> {
+        return self.read([T].jsonReadOpt())
     }
 }
 
