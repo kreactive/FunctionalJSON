@@ -43,13 +43,13 @@ public struct JSONValue : JSONReadable {
         for component in path.content {
             currentPath.append(component)
             switch (component, currentValue.underlying) {
-            case (.Key(let key), let v as Dictionary<String,AnyObject>):
+            case (.Key(let key), let v as NSDictionary):
                 if let newValue = v[key] {
                     currentValue = JSONValue(underlying: newValue,path : currentPath)
                 } else {
                     return JSONValue(underlying: nil,path : currentPath)
                 }
-            case (.Index(let index), let v as Array<AnyObject>):
+            case (.Index(let index), let v as NSArray):
                 if index < v.count {
                     currentValue = JSONValue(underlying: v[index],path : currentPath)
                 } else {
