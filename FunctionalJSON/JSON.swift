@@ -274,6 +274,8 @@ public struct JSONRead<T> {
             }
         }
     }
+    public func withDefault(v : T) -> JSONRead<T> {
+        return self.optional.map {$0 ?? v}
+    }
 }
-
 

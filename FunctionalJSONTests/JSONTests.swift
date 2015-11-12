@@ -174,6 +174,12 @@ class FunctionalJSONTests: XCTestCase {
         let value = try! json.validate(JSONPath("2").read())
         XCTAssertTrue(value.underlying is Array<Int>)
     }
+    func testReadWithDefault() {
+        let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
+        
+        let value = try! json.validate(JSONPath("2").read(Int).withDefault(4))
+        XCTAssertEqual(value, 4)
+    }
     
     func testDebugDescription() {
         let json1 = try! jsonFromAny([1])
