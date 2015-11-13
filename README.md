@@ -1,4 +1,3 @@
-
 # FunctionalJSON
 FunctionalJSON is a fast and functional JSON library for Swift.<br />
 Inspired by the play/scala JSON lib. <br />
@@ -72,17 +71,24 @@ let json = try JSONValue(data : jsonData)
 ```
 The input data is parsed using Foundation NSJSONSerialization.<br />
 Parsing option can be passed as an initializer parameter :
-```let json = try JSONValue(data: jsonData, options : [.AllowFragments])```
+```swift
+let json = try JSONValue(data: jsonData, options : [.AllowFragments])
+```
 
 ### Navigate into the json tree
 
 Navigate using subscript and a `JSONPath` :<br />
-`let jsonElement : JSONValue = json[JSONPath("customers",0)]` <br />
+```swift
+let jsonElement : JSONValue = json[JSONPath("customers",0)]
+```
 or<br />
-`let jsonElement : JSONValue = json["customers"][0]` <br />
+```swift
+let jsonElement : JSONValue = json["customers"][0] <br />
+```
 or :<br />
-`let jsonElement : JSONValue = json["customers",0]`
-
+```swift
+let jsonElement : JSONValue = json["customers",0]
+```
 `JSONPath` is wrapper around a array of `JSONPathComponent`<br />
 ```swift
 public enum JSONPathComponent {
@@ -95,26 +101,32 @@ A `Key` value represents the key of json object and an `Index` represents the in
 This method will always return a `JSONValue`, even if there's no corresponding value in the json tree.<br />
 <br />
 The `isNull` property will return `true` if there is no value. 
-`let isNull : Bool = json["customers",1992002].isNull`
+```swift
+let isNull : Bool = json["customers",1992002].isNull
+```
 <br />
 <br />
 The `isEmpty` property will return `true` if there is no underlying value or is an empty object or array. <br />
-`let isEmpty : Bool = json["customers"].isEmpty`
+```swift
+let isEmpty : Bool = json["customers"].isEmpty
+```
 
- 
 # JSONRead
 `JSONRead<T>` struct defines how a value is read from a json. It contains the path to the element and the function that will validate and transform that element to the target value of type `T`.<br />
 All basic json types are implemented and mapped to the swift types. (`Int..`,`Double`,`Float`,`String`,`Array`) <br/><br/>
-`JSONRead` can be transformed using `map<U>(t : T throws -> U) -> JSONRead<U>`
-
+`JSONRead` can be transformed using 
+```swift
+map<U>(t : T throws -> U) -> JSONRead<U>
+```
 
 ### Example
 
 - Read an `Int` value at path **"customers"/0/"age"** : <br />
-`let read : JSONRead<Int> = JSONPath(["customers",0,"age"]).read(Int)` <br />
+```swift
+let read : JSONRead<Int> = JSONPath(["customers",0,"age"]).read(Int)
+```
 
 - Transform to an NSDate read
-
 ```swift
 let readDate : JSONRead<NSDate> = read.map {
 	guard let date = NSCalendar.currentCalendar().dateByAddingUnit(.Year,
@@ -126,12 +138,15 @@ let readDate : JSONRead<NSDate> = read.map {
            return date
        }
 ```
-        
 - Get an optional read if it fails:
-`let optionalRead : JSONRead<NSDate?> = readDate.optional`
+```swift
+let optionalRead : JSONRead<NSDate?> = readDate.optional
+```
 
 - Or a default value if the read fails :
-`let defaultDateRead : JSONRead<NSDate> = readDate.withDefault(NSDate())`
+```swift
+let defaultDateRead : JSONRead<NSDate> = readDate.withDefault(NSDate())
+```
 
 ### Usage
 ```swift
@@ -150,7 +165,14 @@ public protocol JSONReadable {
 ```
 	
 The `JSONReadable` protocol is used to get the **default** read of a type. It can't be implemented on a non-final `class` because subclasses can't redeclare jsonRead static var for its type.<br />
-This protocol enables the "type" syntax in `JSONValue` validation and `JSONPath` read methods :<br /> `JSONPath("name").read(String)`<br /> instead of <br />`JSONPath("name").read(String.jsonRead)`
+This protocol enables the "type" syntax in `JSONValue` validation and `JSONPath` read methods :<br />
+```swift
+JSONPath("name").read(String)
+```
+instead of
+```swift
+JSONPath("name").read(String.jsonRead)
+```
 
 # Composition
 Composition and the `<&>` operator come from the `FunctionalBuilder` module. This module is used to compose generic throwing functions and accumulate errors. You can composite up to 10 reads.
@@ -188,4 +210,3 @@ This will throw a `JSONValidationError` that contains 2 errors :
 	JSON Errors :
 		JSON Bad value type -> "name"
 		JSON Value not found -> "transactions/0/id"
-
