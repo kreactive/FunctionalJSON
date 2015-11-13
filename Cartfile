@@ -1,1 +1,1 @@
-git "git@git.infra.kreactive.eu:component.ios/FunctionalBuilder.git" "master"
+git "https://github.com/kreactive/FunctionalBuilder.git" "master"
