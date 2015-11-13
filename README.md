@@ -71,7 +71,7 @@ let jsonData : NSData = ...
 let json = try JSONValue(data : jsonData)
 ```
 The input data is parsed using Foundation NSJSONSerialization.<br />
-Parsing option can be passed as initializer parameter :
+Parsing option can be passed as an initializer parameter :
 ```let json = try JSONValue(data: jsonData, options : [.AllowFragments])```
 
 ### Navigate into the json tree
@@ -90,7 +90,7 @@ public enum JSONPathComponent {
    	case Index(Int)
 }
 ```
-A `Key` value represent the key of json object and an `Index` represent the index in a json array. 
+A `Key` value represents the key of json object and an `Index` represents the index in a json array. 
 
 This method will always return a `JSONValue`, even if there's no corresponding value in the json tree.<br />
 <br />
@@ -98,13 +98,13 @@ The `isNull` property will return `true` if there is no value.
 `let isNull : Bool = json["customers",1992002].isNull`
 <br />
 <br />
-The `isEmpty` property will return `true` if there is no value of if the underlying value is an empty object or array. <br />
+The `isEmpty` property will return `true` if there is no underlying value or is an empty object or array. <br />
 `let isEmpty : Bool = json["customers"].isEmpty`
 
  
 # JSONRead
-`JSONRead<T>` struct define how a value is read from a json. It contains the path to the element and the function that will validate and transform that element to the target value of type `T`.<br />
-All json base types reads are implemented and mapped to the swift types. (`Int..`,`Double`,`Float`,`String`,`Array`) <br/><br/>
+`JSONRead<T>` struct defines how a value is read from a json. It contains the path to the element and the function that will validate and transform that element to the target value of type `T`.<br />
+All basic json types are implemented and mapped to the swift types. (`Int..`,`Double`,`Float`,`String`,`Array`) <br/><br/>
 `JSONRead` can be transformed using `map<U>(t : T throws -> U) -> JSONRead<U>`
 
 
@@ -149,11 +149,11 @@ public protocol JSONReadable {
 }
 ```
 	
-The `JSONReadable` protocol is used to get the **default** read of a type. It can't be implemented on non-final `class` because subclass can't redeclare jsonRead static var for its type.<br />
-This protocol enable the "type" syntaxe in `JSONValue` validation and `JSONPath` read methods :<br /> `JSONPath("name").read(String)`<br /> instead of <br />`JSONPath("name").read(String.jsonRead)`
+The `JSONReadable` protocol is used to get the **default** read of a type. It can't be implemented on a non-final `class` because subclasses can't redeclare jsonRead static var for its type.<br />
+This protocol enables the "type" syntax in `JSONValue` validation and `JSONPath` read methods :<br /> `JSONPath("name").read(String)`<br /> instead of <br />`JSONPath("name").read(String.jsonRead)`
 
 # Composition
-Composition and the `<&>` operator come from the `FunctionalBuilder` module. This module is used to compose generic throwing functions and accumulate errors. You can compose up to 10 reads.
+Composition and the `<&>` operator come from the `FunctionalBuilder` module. This module is used to compose generic throwing functions and accumulate errors. You can composite up to 10 reads.
 ```swift
 let read : JSONRead<(String,Int?,[Transaction])> = JSONRead(
 	JSONPath("name").read(String) <&>
