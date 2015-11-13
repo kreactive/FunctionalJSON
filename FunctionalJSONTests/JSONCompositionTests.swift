@@ -87,9 +87,9 @@ class JSONCompositionTests : XCTestCase {
         let subRead = JSONPath("p1").read(String)
         let finalRead = JSONRead(
             JSONPath("prop1").read(String) <&>
-            JSONPath(["prop2","madness"]).read([String]) <&>
+            JSONPath("prop2","madness").read([String]) <&>
             JSONPath("prop3").read(NSURL.jsonRead) <&>
-            JSONPath(["prop3",0,"coucou"]).read(NSURL.jsonRead) <&>
+            JSONPath("prop3",0,"coucou").read(NSURL.jsonRead) <&>
             JSONPath("prop4").read(subRead) <&>
             JSONPath("prop4").read(JSONPath("p4").read(String)<&>JSONPath("p5").read(String))
         )

@@ -47,6 +47,33 @@ class FunctionalJSONTests: XCTestCase {
 
         
     }
+    struct Foo2 : JSONReadable {
+        let prop1 : Foo
+        let prop2 : String
+        static let jsonRead = JSONRead(
+            JSONPath("prop1").read(Foo) <&>
+            JSONPath("prop2").read(String)
+            ).map(Foo2.init)
+    }
+    func testParseErrorComplexe() {
+        let source = [
+            "foo" : [
+                "foo1" : [
+                    "prop1" : ["prop1" : "coucou", "prop2" : 23, "prop3" : NSNull(), "prop4" : true],
+                    "prop2" : "coucou"
+                ],
+                "foo2" : [
+                    "prop2" : "coucou"
+                ]
+            ]
+        ]
+        let json = try! jsonFromAny(source)
+        let read = JSONPath("foo").read(JSONPath("foo1").read(Foo2) <&> JSONPath("foo2").read(Foo2))
+        do {
+            let _ = try json.validate(read)
+            XCTFail("should fail")
+        } catch {}
+    }
     
     func testEmpty() {
         let emptyJSONObject = try! jsonFromAny(NSDictionary())

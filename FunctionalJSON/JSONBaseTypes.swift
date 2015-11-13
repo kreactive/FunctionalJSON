@@ -67,7 +67,7 @@ public extension Array {
     internal static func jsonReadValues() -> JSONRead<[JSONValue]> {
         return JSONRead<[JSONValue]> { v in
             guard let underlying = v.underlying else {throw JSONReadError.ValueNotFound(v.path)}
-            guard let arrayValue = underlying as? Array<AnyObject> else {throw JSONReadError.BadValueType(v.path)}
+            guard let arrayValue = underlying as? NSArray else {throw JSONReadError.BadValueType(v.path)}
             let ret = arrayValue.enumerate().map {JSONValue(underlying: $0.1, path: v.path+$0.0)}
             return ret
         }

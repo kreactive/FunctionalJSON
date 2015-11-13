@@ -143,7 +143,7 @@ class JSONBaseTypeTest: XCTestCase {
         }
         
         do {
-            try json.validate(JSONPath(["arrays"]).read([String]))
+            try json.validate(JSONPath(["array","hello",0]).read([String]))
             XCTFail("should fail with value not found")
         } catch {
             guard let error = error as? JSONValidationError else {
@@ -155,7 +155,7 @@ class JSONBaseTypeTest: XCTestCase {
                 XCTFail("bad error type, should be not found, is \(error)")
                 return
             }
-            XCTAssertEqual(path, JSONPath(["arrays"]))
+            XCTAssertEqual(path, JSONPath(["array","hello",0]))
         }
     }
     func testArrayJSONValue() {

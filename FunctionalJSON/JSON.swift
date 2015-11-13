@@ -12,8 +12,8 @@ import FunctionalBuilder
 public struct JSONValue : JSONReadable {
     let underlying : AnyObject?
     let path : JSONPath
-    public init(data : NSData) throws {
-        underlying = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+    public init(data : NSData, options : NSJSONReadingOptions = []) throws {
+        underlying = try NSJSONSerialization.JSONObjectWithData(data, options: options)
         path = JSONPath([])
     }
     init(var underlying : AnyObject?, path : JSONPath) {
@@ -35,6 +35,9 @@ public struct JSONValue : JSONReadable {
             return false
         }
     }
+    public var isNull : Bool {
+        return self.underlying == nil
+    }
     
     public func elementAtPath(path : JSONPath) -> JSONValue {
         var currentValue = self
@@ -47,7 +50,7 @@ public struct JSONValue : JSONReadable {
                 if let newValue = v[key] {
                     currentValue = JSONValue(underlying: newValue,path : currentPath)
                 } else {
-                    return JSONValue(underlying: nil,path : currentPath)
+                    return JSONValue(underlying: nil,path : self.path + path)
                 }
             case (.Index(let index), let v as NSArray):
                 if index < v.count {
@@ -63,6 +66,9 @@ public struct JSONValue : JSONReadable {
     }
     public subscript(path: JSONPath) -> JSONValue {
         return self.elementAtPath(path)
+    }
+    public subscript(path: JSONPathComponent...) -> JSONValue {
+        return self.elementAtPath(JSONPath(path))
     }
     public func validate<T>(rds : JSONRead<T>) throws -> T {
         return try rds.read(self)
@@ -125,6 +131,9 @@ public struct JSONPath : CustomStringConvertible, Equatable {
         self.init([pathc])
     }
     public init(_ path: [JSONPathComponent]) {
+        self.content = path
+    }
+    public init(_ path: JSONPathComponent...) {
         self.content = path
     }
     public mutating func append(component : JSONPathComponent) {
