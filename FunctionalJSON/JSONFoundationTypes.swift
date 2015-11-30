@@ -18,7 +18,9 @@ public enum JSONFoundationTypesError : ErrorType {
 private typealias Error = JSONFoundationTypesError
 
 public extension NSURL {
-    static let jsonRead : JSONRead<NSURL> = String.jsonRead.map { s in try NSURL(string : s) ?? {throw Error.BadURLFormat(s)}()}
+    static let jsonRead : JSONRead<NSURL> = String.jsonRead.map { s in
+        try NSURLComponents(string: s)?.URL ?? {throw Error.BadURLFormat(s)}()
+    }
 }
 
 public extension NSData {
