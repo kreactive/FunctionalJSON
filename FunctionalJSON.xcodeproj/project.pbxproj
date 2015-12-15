@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0059A81C1C2018D400EB59BD /* FunctionalJSON WatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 0059A81B1C2018D400EB59BD /* FunctionalJSON WatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		0059A8211C20192500EB59BD /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E041BEA755D002E5D99 /* JSON.swift */; };
+		0059A8221C20192500EB59BD /* JSONBaseTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E051BEA755D002E5D99 /* JSONBaseTypes.swift */; };
+		0059A8231C20192500EB59BD /* JSONFoundationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E061BEA755D002E5D99 /* JSONFoundationTypes.swift */; };
+		0059A8241C20192500EB59BD /* JSONReadComposition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71456E071BEA755D002E5D99 /* JSONReadComposition.swift */; };
+		0059A83B1C2028D800EB59BD /* FunctionalBuilder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0059A8371C2027B900EB59BD /* FunctionalBuilder.framework */; };
 		7116AD1C1BF490EA00CCCA73 /* DocumentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7116AD1B1BF490EA00CCCA73 /* DocumentationTests.swift */; };
 		7116AD1E1BF4911600CCCA73 /* usageDoc.json in Resources */ = {isa = PBXBuildFile; fileRef = 7116AD1D1BF4911600CCCA73 /* usageDoc.json */; };
 		71264A181BEBA44B00D13BD7 /* JSONTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71264A171BEBA44B00D13BD7 /* JSONTests.swift */; };
@@ -37,6 +43,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0059A8191C2018D400EB59BD /* FunctionalJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FunctionalJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0059A81B1C2018D400EB59BD /* FunctionalJSON WatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FunctionalJSON WatchOS.h"; sourceTree = "<group>"; };
+		0059A81D1C2018D400EB59BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0059A8371C2027B900EB59BD /* FunctionalBuilder.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FunctionalBuilder.framework; path = Carthage/Build/watchOS/FunctionalBuilder.framework; sourceTree = "<group>"; };
 		7116AD1B1BF490EA00CCCA73 /* DocumentationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentationTests.swift; sourceTree = "<group>"; };
 		7116AD1D1BF4911600CCCA73 /* usageDoc.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = usageDoc.json; sourceTree = "<group>"; };
 		71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FunctionalJSONTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +69,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0059A8151C2018D400EB59BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0059A83B1C2028D800EB59BD /* FunctionalBuilder.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71264A121BEBA44B00D13BD7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -79,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0059A81A1C2018D400EB59BD /* FunctionalJSON WatchOS */ = {
+			isa = PBXGroup;
+			children = (
+				0059A81B1C2018D400EB59BD /* FunctionalJSON WatchOS.h */,
+				0059A81D1C2018D400EB59BD /* Info.plist */,
+			);
+			path = "FunctionalJSON WatchOS";
+			sourceTree = "<group>";
+		};
 		71264A161BEBA44B00D13BD7 /* FunctionalJSONTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,6 +129,7 @@
 				71456E0E1BEB4B34002E5D99 /* Dependencies */,
 				71456DFB1BEA74FE002E5D99 /* FunctionalJSON */,
 				71264A161BEBA44B00D13BD7 /* FunctionalJSONTests */,
+				0059A81A1C2018D400EB59BD /* FunctionalJSON WatchOS */,
 				71456DFA1BEA74FE002E5D99 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -111,6 +139,7 @@
 			children = (
 				71456DF91BEA74FE002E5D99 /* FunctionalJSON.framework */,
 				71264A151BEBA44B00D13BD7 /* FunctionalJSONTests.xctest */,
+				0059A8191C2018D400EB59BD /* FunctionalJSON.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -132,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				71456E0C1BEB4B2B002E5D99 /* FunctionalBuilder.framework */,
+				0059A8371C2027B900EB59BD /* FunctionalBuilder.framework */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -139,6 +169,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		0059A8161C2018D400EB59BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0059A81C1C2018D400EB59BD /* FunctionalJSON WatchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71456DF61BEA74FE002E5D99 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,6 +188,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		0059A8181C2018D400EB59BD /* FunctionalJSON WatchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0059A8201C2018D400EB59BD /* Build configuration list for PBXNativeTarget "FunctionalJSON WatchOS" */;
+			buildPhases = (
+				0059A8141C2018D400EB59BD /* Sources */,
+				0059A8151C2018D400EB59BD /* Frameworks */,
+				0059A8161C2018D400EB59BD /* Headers */,
+				0059A8171C2018D400EB59BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FunctionalJSON WatchOS";
+			productName = "FunctionalJSON WatchOS";
+			productReference = 0059A8191C2018D400EB59BD /* FunctionalJSON.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		71264A141BEBA44B00D13BD7 /* FunctionalJSONTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 71264A1F1BEBA44B00D13BD7 /* Build configuration list for PBXNativeTarget "FunctionalJSONTests" */;
@@ -197,6 +253,9 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = Kreactive;
 				TargetAttributes = {
+					0059A8181C2018D400EB59BD = {
+						CreatedOnToolsVersion = 7.2;
+					};
 					71264A141BEBA44B00D13BD7 = {
 						CreatedOnToolsVersion = 7.1;
 					};
@@ -219,11 +278,19 @@
 			targets = (
 				71456DF81BEA74FE002E5D99 /* FunctionalJSON */,
 				71264A141BEBA44B00D13BD7 /* FunctionalJSONTests */,
+				0059A8181C2018D400EB59BD /* FunctionalJSON WatchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0059A8171C2018D400EB59BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71264A131BEBA44B00D13BD7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,6 +327,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0059A8141C2018D400EB59BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0059A8211C20192500EB59BD /* JSON.swift in Sources */,
+				0059A8221C20192500EB59BD /* JSONBaseTypes.swift in Sources */,
+				0059A8231C20192500EB59BD /* JSONFoundationTypes.swift in Sources */,
+				0059A8241C20192500EB59BD /* JSONReadComposition.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		71264A111BEBA44B00D13BD7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -296,6 +374,54 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		0059A81E1C2018D400EB59BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "FunctionalJSON WatchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.digischool.FunctionalJSON-WatchOS";
+				PRODUCT_NAME = FunctionalJSON;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Debug;
+		};
+		0059A81F1C2018D400EB59BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "FunctionalJSON WatchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "fr.digischool.FunctionalJSON-WatchOS";
+				PRODUCT_NAME = FunctionalJSON;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.1;
+			};
+			name = Release;
+		};
 		71264A1D1BEBA44B00D13BD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -463,6 +589,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0059A8201C2018D400EB59BD /* Build configuration list for PBXNativeTarget "FunctionalJSON WatchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0059A81E1C2018D400EB59BD /* Debug */,
+				0059A81F1C2018D400EB59BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		71264A1F1BEBA44B00D13BD7 /* Build configuration list for PBXNativeTarget "FunctionalJSONTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
