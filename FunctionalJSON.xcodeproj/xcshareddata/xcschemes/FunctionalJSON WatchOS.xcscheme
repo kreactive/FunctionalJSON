@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0059A8181C2018D400EB59BD"
-               BuildableName = "FunctionalJSON WatchOS.framework"
+               BuildableName = "FunctionalJSON.framework"
                BlueprintName = "FunctionalJSON WatchOS"
                ReferencedContainer = "container:FunctionalJSON.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0059A8181C2018D400EB59BD"
-            BuildableName = "FunctionalJSON WatchOS.framework"
+            BuildableName = "FunctionalJSON.framework"
             BlueprintName = "FunctionalJSON WatchOS"
             ReferencedContainer = "container:FunctionalJSON.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0059A8181C2018D400EB59BD"
-            BuildableName = "FunctionalJSON WatchOS.framework"
+            BuildableName = "FunctionalJSON.framework"
             BlueprintName = "FunctionalJSON WatchOS"
             ReferencedContainer = "container:FunctionalJSON.xcodeproj">
          </BuildableReference>
