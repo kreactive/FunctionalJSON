@@ -16,9 +16,14 @@ public struct JSONValue : JSONReadable {
         underlying = try NSJSONSerialization.JSONObjectWithData(data, options: options)
         path = JSONPath([])
     }
-    init(var underlying : AnyObject?, path : JSONPath) {
-        if underlying is NSNull { underlying = nil }
-        self.underlying = underlying
+    init(underlying : AnyObject?, path : JSONPath) {
+        self.underlying = {
+            if underlying is NSNull {
+                return nil
+            } else {
+                return underlying
+            }
+        }()
         self.path = path
     }
     public static let jsonRead = JSONRead(transform:{$0})
@@ -122,10 +127,10 @@ public struct JSONPath : CustomStringConvertible, Equatable {
         self.init([])
     }
     public init(_ component: String) {
-        self.init(JSONPathComponent(component))
+        self.init([JSONPathComponent(component)])
     }
     public init(_ component: Int) {
-        self.init(JSONPathComponent(component))
+        self.init([JSONPathComponent(component)])
     }
     public init(_ pathc: JSONPathComponent) {
         self.init([pathc])
@@ -197,13 +202,15 @@ public func ==(lhs : JSONPathComponent,rhs : JSONPathComponent) -> Bool {
     }
 }
 
-public func +(var lhs: JSONPath, rhs: JSONPath) -> JSONPath {
-    lhs.append(rhs)
-    return lhs
+public func +(lhs: JSONPath, rhs: JSONPath) -> JSONPath {
+    var result = lhs
+    result.append(rhs)
+    return result
 }
-public func +(var lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
-    lhs.append(rhs)
-    return lhs
+public func +(lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
+    var result = lhs
+    result.append(rhs)
+    return result
 }
 public func +(lhs: JSONPath, rhs: Int) -> JSONPath {
     return lhs+JSONPathComponent(rhs)
