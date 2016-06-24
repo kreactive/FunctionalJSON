@@ -5,7 +5,7 @@
 //
 
 import XCTest
-@testable import FunctionalJSON
+import FunctionalJSON
 import FunctionalBuilder
 
 

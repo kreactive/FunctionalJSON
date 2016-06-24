@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import FunctionalJSON
+import FunctionalJSON
 
 func jsonFromAny(any : Dictionary<String,AnyObject>) throws -> JSONValue {
     return try JSONValue(data: NSJSONSerialization.dataWithJSONObject(any,options: []))
