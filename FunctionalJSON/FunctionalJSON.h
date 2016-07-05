@@ -1,12 +1,9 @@
-//
-//.h
-//
-//
+
 //  Created by Antoine Palazzolo on 04/11/15.
 //  
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for FunctionalJSON.
 FOUNDATION_EXPORT double FunctionalJSONVersionNumber;
