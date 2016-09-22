@@ -9,15 +9,15 @@
 import Foundation
 import FunctionalJSON
 
-func jsonFromAny(any : Dictionary<String,AnyObject>) throws -> JSONValue {
-    return try JSONValue(data: NSJSONSerialization.dataWithJSONObject(any,options: []))
+func jsonFromAny(_ any : [String : Any]) throws -> JSONValue {
+    return try JSONValue(data: JSONSerialization.data(withJSONObject: any,options: []))
 }
-func jsonFromAny(any : Array<AnyObject>) throws -> JSONValue {
-    return try JSONValue(data: NSJSONSerialization.dataWithJSONObject(any,options: []))
+func jsonFromAny(_ any : [Any]) throws -> JSONValue {
+    return try JSONValue(data: JSONSerialization.data(withJSONObject: any,options: []))
 }
-func jsonFromAny(any : NSArray) throws -> JSONValue {
-    return try JSONValue(data: NSJSONSerialization.dataWithJSONObject(any,options: []))
+func jsonFromAny(_ any : NSArray) throws -> JSONValue {
+    return try JSONValue(data: JSONSerialization.data(withJSONObject: any,options: []))
 }
-func jsonFromAny(any : NSDictionary) throws -> JSONValue {
-    return try JSONValue(data: NSJSONSerialization.dataWithJSONObject(any,options: []))
+func jsonFromAny(_ any : NSDictionary) throws -> JSONValue {
+    return try JSONValue(data: JSONSerialization.data(withJSONObject: any,options: []))
 }

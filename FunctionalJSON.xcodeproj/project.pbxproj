@@ -360,23 +360,28 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = Kreactive;
 				TargetAttributes = {
 					0059A8181C2018D400EB59BD = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0800;
 					};
 					71264A141BEBA44B00D13BD7 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					71456DF81BEA74FE002E5D99 = {
 						CreatedOnToolsVersion = 7.1;
+						LastSwiftMigration = 0800;
 					};
 					719156431D1D365200FC55C9 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					7191564C1D1D365200FC55C9 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -573,6 +578,7 @@
 				PRODUCT_NAME = FunctionalJSON;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -597,6 +603,8 @@
 				PRODUCT_NAME = FunctionalJSON;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 2.0;
 			};
@@ -613,6 +621,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSONTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -627,6 +636,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSONTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -740,6 +751,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -763,6 +775,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.kreactive.FunctionalJSON;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -786,6 +800,7 @@
 				PRODUCT_NAME = FunctionalJSON;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -811,6 +826,8 @@
 				PRODUCT_NAME = FunctionalJSON;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
@@ -829,6 +846,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Kreactive.FunctionalJSON-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Debug;
@@ -846,6 +864,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Kreactive.FunctionalJSON-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Release;
@@ -896,6 +916,7 @@
 				719156571D1D365200FC55C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		719156581D1D365200FC55C9 /* Build configuration list for PBXNativeTarget "FunctionalJSON tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -904,6 +925,7 @@
 				7191565A1D1D365200FC55C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

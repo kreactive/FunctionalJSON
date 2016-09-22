@@ -22,11 +22,11 @@ class PerformanceTests : XCTestCase {
         let prop3 : Int?
         let prop4 : Bool
         
-        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").read(Int?) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
+        static let jsonRead = JSONRead(JSONPath("prop1").read(String.self) <&> JSONPath("prop2").read(Int.self) <&> JSONPath("prop3").read((Int?).self) <&> JSONPath("prop4").read(Bool.self)).map(Foo.init)
     }
     
-    let source : [AnyObject] = {
-        let source = [
+    let source : [Any] = {
+        let source : [Any] = [
             [
                 "prop1" : "coucou",
                 "prop2" : 2,
@@ -39,35 +39,35 @@ class PerformanceTests : XCTestCase {
                 "prop3" : NSNull(),
                 "prop4" : true
             ]
-        ] as Array<AnyObject>
+        ]
         
-        var final = Array<AnyObject>()
+        var final = [Any]()
         for _ in 0...200 {
-            final.appendContentsOf(source)
+            final.append(contentsOf: source)
         }
         return final
     }()
     
     func testReadPerf() {
         let json = try! jsonFromAny(self.source)
-        self.measureBlock {
-            try! json.validate([Foo].jsonRead())
+        self.measure {
+            let _ = try! json.validate([Foo].jsonRead())
         }
     }
     func testReadPerfManual() {
-        let jsonData = try! NSJSONSerialization.dataWithJSONObject(self.source, options: [])
-        let json = try! NSJSONSerialization.JSONObjectWithData(jsonData, options: [])
-        self.measureBlock {
-            try! self.manualParse(json)
+        let jsonData = try! JSONSerialization.data(withJSONObject: self.source, options: [])
+        let json = try! JSONSerialization.jsonObject(with: jsonData, options: [])
+        self.measure {
+            let _ = try! self.manualParse(json)
         }
     }
     
     
-    private enum Error : ErrorType {
-        case Err
+    private enum MyError : Error {
+        case err
     }
-    func manualParse(json : AnyObject) throws -> [Foo] {
-        guard let array = json as? Array<Dictionary<String,AnyObject>> else { throw Error.Err }
+    func manualParse(_ json : Any) throws -> [Foo] {
+        guard let array = json as? Array<Dictionary<String,AnyObject>> else { throw MyError.err }
         
         var foos = [Foo]()
         for object in array {
@@ -75,11 +75,11 @@ class PerformanceTests : XCTestCase {
             let p2 = object["prop2"] as? NSNumber
             let p3 = object["prop2"] as? NSNumber
             let p4 = object["prop2"] as? NSNumber
-            if let p1 = p1, p2 = p2, p4 = p4 {
-                let foo = Foo(prop1: p1, prop2: p2.integerValue, prop3: p3?.integerValue, prop4: p4.boolValue)
+            if let p1 = p1, let p2 = p2, let p4 = p4 {
+                let foo = Foo(prop1: p1, prop2: p2.intValue, prop3: p3?.intValue, prop4: p4.boolValue)
                 foos.append(foo)
             } else {
-                throw Error.Err
+                throw MyError.err
             }
         }
         return foos

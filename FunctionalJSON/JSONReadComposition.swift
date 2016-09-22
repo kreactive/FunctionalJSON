@@ -12,7 +12,8 @@ import FunctionalBuilder
 
 
 extension JSONRead : ComposeType {
-    public init<U : ComposeType where U.Input == JSONValue, U.Output == T>(_ compose : U) {
+    public init<U : ComposeType>(_ compose : U) where
+        U.Input == JSONValue, U.Output == T {
         self.init(transform: compose.pure)
     }
     public var pure : (JSONValue) throws -> T {
@@ -21,12 +22,14 @@ extension JSONRead : ComposeType {
 }
 
 extension JSONPath {
-    public func read<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) -> JSONRead<T> {
+    public func read<T,U : ComposeType>(_ compose : U) -> JSONRead<T> where
+        U.Input == JSONValue, U.Output == T {
         return JSONRead(path: self, source: JSONRead(compose))
     }
 }
 extension JSONValue {
-    public func validate<T,U : ComposeType where U.Input == JSONValue, U.Output == T>(compose : U) throws -> T {
+    public func validate<T,U : ComposeType>(_ compose : U) throws -> T where
+        U.Input == JSONValue, U.Output == T {
         return try self.validate(JSONRead(compose))
     }
 }
