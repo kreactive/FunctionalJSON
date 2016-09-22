@@ -9,41 +9,43 @@
 import Foundation
 
 
-public enum JSONFoundationTypesError : ErrorType {
-    case BadURLFormat(String)
-    case BadBase64Format(String)
-    case BadDateFormat(usedFormat : String, input : String)
+public enum JSONFoundationTypesError : Error {
+    case badURLFormat(String)
+    case badBase64Format(String)
+    case badDateFormat(usedFormat : String, input : String)
 
 }
-private typealias Error = JSONFoundationTypesError
 
-public extension NSURL {
-    static let jsonRead : JSONRead<NSURL> = String.jsonRead.map { s in
-        try NSURLComponents(string: s)?.URL ?? {throw Error.BadURLFormat(s)}()
+extension URL : JSONReadable {
+    public static let jsonRead : JSONRead<URL> = String.jsonRead.map { s in
+        try URLComponents(string: s)?.url ?? {throw JSONFoundationTypesError.badURLFormat(s)}()
     }
 }
 
-public extension NSData {
-    static let jsonReadBase64 : JSONRead<NSData> = NSData.jsonReadBase64()
-    static func jsonReadBase64(options : NSDataBase64DecodingOptions = []) -> JSONRead<NSData> {
+public extension Data {
+    static let jsonReadBase64 : JSONRead<Data> = Data.jsonReadBase64()
+    static func jsonReadBase64(_ options : Data.Base64DecodingOptions = []) -> JSONRead<Data> {
         return String.jsonRead.map { s in
-            try NSData(base64EncodedString: s, options: options) ?? {throw Error.BadBase64Format(s)}()
+            guard let data = Data(base64Encoded: s, options: options) else {
+                throw JSONFoundationTypesError.badBase64Format(s)
+            }
+            return data
         }
     }
 }
 
 
-public extension NSDate {
+public extension Date {
     
     //read double and integer values of timestamps (seconds from 1970)
-    static let jsonReadTimestamp : JSONRead<NSDate> = Double.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0))}
+    static let jsonReadTimestamp : JSONRead<Date> = Double.jsonRead.map { Date(timeIntervalSince1970: TimeInterval($0))}
     
     //read double and integer values of millisecondes timestamps (millisecondes from 1970)
-    static let jsonReadTimestampMilli : JSONRead<NSDate> = Double.jsonRead.map { NSDate(timeIntervalSince1970: NSTimeInterval($0)/1000.0)}
+    static let jsonReadTimestampMilli : JSONRead<Date> = Double.jsonRead.map { Date(timeIntervalSince1970: TimeInterval($0)/1000.0)}
 
-    static func jsonRead(format : NSDateFormatter) -> JSONRead<NSDate> {
+    static func jsonRead(_ format : DateFormatter) -> JSONRead<Date> {
         return String.jsonRead.map { s in
-            try format.dateFromString(s) ?? {throw Error.BadDateFormat(usedFormat : format.dateFormat ?? "",input :s)}()
+            try format.date(from: s) ?? {throw JSONFoundationTypesError.badDateFormat(usedFormat : format.dateFormat ?? "",input :s)}()
         }
     }
 }

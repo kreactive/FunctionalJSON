@@ -30,16 +30,16 @@ class FunctionalJSONTests: XCTestCase {
         let prop3 : Int?
         let prop4 : Bool
         
-        static let jsonRead = JSONRead(JSONPath("prop1").read(String) <&> JSONPath("prop2").read(Int) <&> JSONPath("prop3").read(Int?) <&> JSONPath("prop4").read(Bool)).map(Foo.init)
+        static let jsonRead = JSONRead(JSONPath("prop1").read(String.self) <&> JSONPath("prop2").read(Int.self) <&> JSONPath("prop3").read((Int?).self) <&> JSONPath("prop4").read(Bool.self)).map(Foo.init)
     }
     
     func testParseBasic() {
        
-        let jsonObject = ["prop1" : "coucou", "prop2" : 23, "prop3" : NSNull(), "prop4" : true]
+        let jsonObject : [String : Any] = ["prop1" : "coucou", "prop2" : 23, "prop3" : NSNull(), "prop4" : true]
         
         let json = try! jsonFromAny(jsonObject)
         
-        let foo = try! json.validate(Foo)
+        let foo = try! json.validate(Foo.self)
         XCTAssertEqual(foo.prop1,"coucou")
         XCTAssertEqual(foo.prop2, 23)
         XCTAssertNil(foo.prop3)
@@ -51,8 +51,8 @@ class FunctionalJSONTests: XCTestCase {
         let prop1 : Foo
         let prop2 : String
         static let jsonRead = JSONRead(
-            JSONPath("prop1").read(Foo) <&>
-            JSONPath("prop2").read(String)
+            JSONPath("prop1").read(Foo.self) <&>
+            JSONPath("prop2").read(String.self)
             ).map(Foo2.init)
     }
     func testParseErrorComplexe() {
@@ -68,7 +68,7 @@ class FunctionalJSONTests: XCTestCase {
             ]
         ]
         let json = try! jsonFromAny(source)
-        let read = JSONPath("foo").read(JSONPath("foo1").read(Foo2) <&> JSONPath("foo2").read(Foo2))
+        let read = JSONPath("foo").read(JSONPath("foo1").read(Foo2.self) <&> JSONPath("foo2").read(Foo2.self))
         do {
             let _ = try json.validate(read)
             XCTFail("should fail")
@@ -91,26 +91,26 @@ class FunctionalJSONTests: XCTestCase {
     }
     func testArrayNavigation() {
         let json = try! jsonFromAny([1,2,3,[4,[5,6],7,8]])
-        XCTAssertEqual(try! json.validate(JSONPath(1).read(Int)), 2)
-        XCTAssertEqual(try! json.validate(JSONPath([3,0]).read(Int)), 4)
-        XCTAssertEqual(try! json.validate(JSONPath([3,1,1]).read(Int)), 6)
-        XCTAssertEqual(try! json.validate(JSONPath([3,2]).read(Int)), 7)
-        XCTAssertEqual(try! json.validate((JSONPath(3)+2).read(Int)), 7)
+        XCTAssertEqual(try! json.validate(JSONPath(1).read(Int.self)), 2)
+        XCTAssertEqual(try! json.validate(JSONPath([3,0]).read(Int.self)), 4)
+        XCTAssertEqual(try! json.validate(JSONPath([3,1,1]).read(Int.self)), 6)
+        XCTAssertEqual(try! json.validate(JSONPath([3,2]).read(Int.self)), 7)
+        XCTAssertEqual(try! json.validate((JSONPath(3)+2).read(Int.self)), 7)
 
-        XCTAssertEqual(try! json.validate((JSONPath([3,1,2])+3).read(Int?)), nil)
-        XCTAssertEqual(try! json[[3,1,2]].validate(Int?), nil)
+        XCTAssertEqual(try! json.validate((JSONPath([3,1,2])+3).read((Int?).self)), nil)
+        XCTAssertEqual(try! json[[3,1,2]].validate((Int?).self), nil)
 
     }
     func testObjectNavigation() {
         let json = try! jsonFromAny(["1" : 1,"2" : ["4" : ["5" : 6], "7" : 8]])
-        XCTAssertEqual(try! json.validate(JSONPath("1").read(Int)), 1)
-        XCTAssertEqual(try! json.validate(JSONPath(["2","7",]).read(Int)), 8)
-        XCTAssertEqual(try! json.validate((JSONPath(["2","4"])+"5").read(Int)), 6)
+        XCTAssertEqual(try! json.validate(JSONPath("1").read(Int.self)), 1)
+        XCTAssertEqual(try! json.validate(JSONPath(["2","7",]).read(Int.self)), 8)
+        XCTAssertEqual(try! json.validate((JSONPath(["2","4"])+"5").read(Int.self)), 6)
         
-        XCTAssertEqual(try! json.validate((JSONPath(["2","4","Nop"])+"nopnop").read(Int?)), nil)
-        XCTAssertEqual(try! json.validate(JSONPath(["2","nop","Nop"]).read(Int?)), nil)
+        XCTAssertEqual(try! json.validate((JSONPath(["2","4","Nop"])+"nopnop").read((Int?).self)), nil)
+        XCTAssertEqual(try! json.validate(JSONPath(["2","nop","Nop"]).read((Int?).self)), nil)
 
-        XCTAssertEqual(try! json[["2","nop","Nop"]].validate(Int?), nil)
+        XCTAssertEqual(try! json[["2","nop","Nop"]].validate((Int?).self), nil)
     }
     func testMixedNavigation() {
         let json = try! jsonFromAny([
@@ -125,10 +125,10 @@ class FunctionalJSONTests: XCTestCase {
                 ]
             ])
         
-        XCTAssertEqual(try! json.validate(JSONPath(["1",1]).read(Int)), 2)
-        XCTAssertEqual(try! json.validate(JSONPath(["1",3,"6"]).read(Int)), 7)
-        XCTAssertEqual(try! json.validate(JSONPath(["8",0,"10"]).read(Int)), 11)
-        XCTAssertEqual(try! json.validate(JSONPath(0).read(Int?)), nil)
+        XCTAssertEqual(try! json.validate(JSONPath(["1",1]).read(Int.self)), 2)
+        XCTAssertEqual(try! json.validate(JSONPath(["1",3,"6"]).read(Int.self)), 7)
+        XCTAssertEqual(try! json.validate(JSONPath(["8",0,"10"]).read(Int.self)), 11)
+        XCTAssertEqual(try! json.validate(JSONPath(0).read((Int?).self)), nil)
 
     }
     func testPathBuild() {
@@ -184,17 +184,17 @@ class FunctionalJSONTests: XCTestCase {
     func testToOpt() {
         let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
         
-        XCTAssertNil(try! json["1"].validate(String?))
-        XCTAssertNotNil(try! json["1"].validate(Int?))
+        XCTAssertNil(try! json["1"].validate((String?).self))
+        XCTAssertNotNil(try! json["1"].validate((Int?).self))
         
-        XCTAssertNil(try! json.validate(JSONPath("1").read(String?)))
-        XCTAssertNotNil(try! json.validate(JSONPath("1").read(Int?)))
+        XCTAssertNil(try! json.validate(JSONPath("1").read((String?).self)))
+        XCTAssertNotNil(try! json.validate(JSONPath("1").read((Int?).self)))
 
-        XCTAssertNil(try! json["1"].validate([String]?))
-        XCTAssertNotNil(try! json["2"].validate([Int]?))
+        XCTAssertNil(try! json["1"].validate(([String]?).self))
+        XCTAssertNotNil(try! json["2"].validate(([Int]?).self))
 
-        XCTAssertNil(try! json.validate(JSONPath("1").read([String]?)))
-        XCTAssertNotNil(try! json.validate(JSONPath("2").read([Int]?)))
+        XCTAssertNil(try! json.validate(JSONPath("1").read(([String]?).self)))
+        XCTAssertNotNil(try! json.validate(JSONPath("2").read(([Int]?).self)))
     }
     func testReadJSONValue() {
         let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
@@ -204,32 +204,32 @@ class FunctionalJSONTests: XCTestCase {
     func testReadWithDefault() {
         let json = try! jsonFromAny(["1" : 1, "2": [1,2,3]])
         
-        let value = try! json.validate(JSONPath("2").read(Int).withDefault(4))
+        let value = try! json.validate(JSONPath("2").read(Int.self).withDefault(4))
         XCTAssertEqual(value, 4)
     }
     
     func testDebugDescription() {
         let json1 = try! jsonFromAny([1])
         do {
-            try json1[0].validate(String)
+            let _ = try json1[0].validate(String.self)
         } catch let error as JSONValidationError {
-            error.debugDescription
+            let _ = error.debugDescription
         } catch {
             XCTFail("")
         }
         
         do {
-            try json1.validate(JSONPath("0").read(String) <&> JSONPath("2").read(JSONPath("0").read(Int) <&> JSONPath("0").read(Int)))
+            let _ = try json1.validate(JSONPath("0").read(String.self) <&> JSONPath("2").read(JSONPath("0").read(Int.self) <&> JSONPath("0").read(Int.self)))
         } catch let error as JSONValidationError {
-            error.debugDescription
+            let _ = error.debugDescription
         } catch {
             XCTFail("")
         }
         
         do {
-            try json1.validate(JSONPath(0).read(Int).map({_ -> String in throw NSError(domain: "", code: 0, userInfo: nil)}))
+            let _ = try json1.validate(JSONPath(0).read(Int.self).map({_ -> String in throw NSError(domain: "", code: 0, userInfo: nil)}))
         } catch let error as JSONValidationError {
-            error.debugDescription
+            let _ = error.debugDescription
         } catch {
             XCTFail("")
         }

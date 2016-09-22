@@ -19,57 +19,57 @@ class DocumentationTests : XCTestCase {
         let transactions : [Transaction]
         
         static let jsonRead = JSONRead(
-                JSONPath("name").read(String) <&>
-                JSONPath("age").read(Int?) <&>
-                JSONPath("transactions").read([Transaction])
+                JSONPath("name").read(String.self) <&>
+                JSONPath("age").read((Int?).self) <&>
+                JSONPath("transactions").read([Transaction].self)
             ).map(Person.init)
     }
     struct Transaction : JSONReadable {
         let identifier : Int64
-        static let jsonRead = JSONPath("id").read(Int64).map(Transaction.init)
+        static let jsonRead = JSONPath("id").read(Int64.self).map(Transaction.init)
     }
     
     func testUsageDoc() {
-        let jsonData : NSData = NSData(contentsOfFile: NSBundle(forClass: self.dynamicType).pathForResource("usageDoc", ofType: "json")!)!
+        let jsonData : Data = try! Data(contentsOf: URL(fileURLWithPath: Bundle(for: type(of: self)).path(forResource: "usageDoc", ofType: "json")!))
 
         let json = try! JSONValue(data : jsonData)
         
-        let persons : [Person] = try! json["customers"].validate([Person])
+        let persons : [Person] = try! json["customers"].validate([Person].self)
 
         XCTAssertEqual(persons.count,3)
         
     }
     func testValidationDoc() {
-        let jsonData : NSData = NSData(contentsOfFile: NSBundle(forClass: self.dynamicType).pathForResource("validationDoc", ofType: "json")!)!
+        let jsonData : Data = try! Data(contentsOf: URL(fileURLWithPath: Bundle(for: type(of: self)).path(forResource: "validationDoc", ofType: "json")!))
         
         let json = try! JSONValue(data : jsonData)
         
         do {
-            let _ = try json.validate(Person)
+            let _ = try json.validate(Person.self)
             XCTFail("should fail")
         } catch {
             print(error)
         }
     }
     
-    private enum Error : ErrorType {
-        case DateError
+    private enum MyError : Error {
+        case dateError
     }
     func testReadExample() {
         
-        let read : JSONRead<Int> = JSONPath(["customers",0,"age"]).read(Int)
-        let readDate : JSONRead<NSDate> = read.map {
-            guard let date = NSCalendar.currentCalendar().dateByAddingUnit(.Year,
-                value: -$0,
-                toDate: NSDate(),
-                options: []) else {
-                throw Error.DateError
+        let read : JSONRead<Int> = JSONPath(["customers",0,"age"]).read(Int.self)
+        let readDate : JSONRead<Date> = read.map {
+            var dateComponents = DateComponents()
+            dateComponents.year = -$0
+            
+            guard let date = Calendar.current.date(byAdding: dateComponents, to: Date()) else {
+                throw MyError.dateError
             }
             return date
         }
         
-        let optionalRead : JSONRead<NSDate?> = readDate.optional
-        let defaultDateRead : JSONRead<NSDate> = readDate.withDefault(NSDate())
+        let optionalRead : JSONRead<Date?> = readDate.optional
+        let defaultDateRead : JSONRead<Date> = readDate.withDefault(Date())
         
         let jsonValue = try! jsonFromAny(["customers" : [["name" : "dqs", "age": 28]]])
         
@@ -83,8 +83,8 @@ class DocumentationTests : XCTestCase {
     func testJSONValueExample() {
         
         let jsonSource = ["customers" : [["name" : "dqs", "age": 28]]]
-        let jsonData = try! NSJSONSerialization.dataWithJSONObject(jsonSource, options: [])
-        let json = try? JSONValue(data: jsonData, options : [.AllowFragments])
+        let jsonData = try! JSONSerialization.data(withJSONObject: jsonSource, options: [])
+        let json = try? JSONValue(data: jsonData, options : [.allowFragments])
         XCTAssertNotNil(json)
         
     }
