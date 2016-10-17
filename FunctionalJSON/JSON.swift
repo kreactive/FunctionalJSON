@@ -133,6 +133,16 @@ public enum JSONPathComponent : ExpressibleByIntegerLiteral,ExpressibleByStringL
             return key.hashValue
         }
     }
+    public static func ==(lhs : JSONPathComponent,rhs : JSONPathComponent) -> Bool {
+        switch (lhs,rhs) {
+        case (.key(let v1),.key(let v2)) where v1 == v2:
+            return true
+        case (.index(let v1),.index(let v2)) where v1 == v2:
+            return true
+        default :
+            return false
+        }
+    }
 }
 
 public struct JSONPath : CustomStringConvertible, Equatable {
@@ -176,6 +186,25 @@ public struct JSONPath : CustomStringConvertible, Equatable {
     public func read<T: JSONReadable>(_ : T?.Type) -> JSONRead<T?> {
         return self.read(T.jsonRead.optional)
     }
+    public static func ==(lhs : JSONPath,rhs : JSONPath) -> Bool {
+        return lhs.content == rhs.content
+    }
+    public static func +(lhs: JSONPath, rhs: JSONPath) -> JSONPath {
+        var result = lhs
+        result.append(rhs)
+        return result
+    }
+    public static func +(lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
+        var result = lhs
+        result.append(rhs)
+        return result
+    }
+    public static func +(lhs: JSONPath, rhs: Int) -> JSONPath {
+        return lhs+JSONPathComponent(rhs)
+    }
+    public static func +(lhs: JSONPath, rhs: String) -> JSONPath {
+        return lhs+JSONPathComponent(rhs)
+    }
 }
 extension JSONPath : ExpressibleByStringLiteral {
     
@@ -203,37 +232,6 @@ extension JSONPath : ExpressibleByArrayLiteral {
         self.init(elements)
     }
 
-}
-
-public func ==(lhs : JSONPath,rhs : JSONPath) -> Bool {
-    return lhs.content == rhs.content
-}
-public func ==(lhs : JSONPathComponent,rhs : JSONPathComponent) -> Bool {
-    switch (lhs,rhs) {
-    case (.key(let v1),.key(let v2)) where v1 == v2:
-        return true
-    case (.index(let v1),.index(let v2)) where v1 == v2:
-        return true
-    default :
-        return false
-    }
-}
-
-public func +(lhs: JSONPath, rhs: JSONPath) -> JSONPath {
-    var result = lhs
-    result.append(rhs)
-    return result
-}
-public func +(lhs: JSONPath, rhs: JSONPathComponent) -> JSONPath {
-    var result = lhs
-    result.append(rhs)
-    return result
-}
-public func +(lhs: JSONPath, rhs: Int) -> JSONPath {
-    return lhs+JSONPathComponent(rhs)
-}
-public func +(lhs: JSONPath, rhs: String) -> JSONPath {
-    return lhs+JSONPathComponent(rhs)
 }
 
 public enum JSONReadError : Error , CustomDebugStringConvertible {
