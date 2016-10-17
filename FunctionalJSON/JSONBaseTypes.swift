@@ -131,4 +131,3 @@ public extension JSONPath {
         return self.read([T].jsonReadOpt())
     }
 }
-

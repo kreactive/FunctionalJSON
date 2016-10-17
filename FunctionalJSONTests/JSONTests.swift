@@ -234,4 +234,30 @@ class FunctionalJSONTests: XCTestCase {
             XCTFail("")
         }
     }
+    
+    func testPathOnJSONValues() {
+        let underlyingDict : [String : Any] = [
+            "key1" : "blabla",
+            "key2" : 1,
+            "key3" : "dqsd",
+            "key4" : true,
+            "key5" : 1.4
+        ]
+        let jsonValueDic = JSONValue(underlying: underlyingDict, path: JSONPath())
+        XCTAssertEqual(
+            Set(["key1","key2","key3","key4","key5"].map(JSONPathComponent.init(_:))),
+            Set(jsonValueDic.subPathComponents)
+        )
+        
+        
+        let undelyingArray : [Any] = ["1234", 1.2, 1, "", true]
+        let jsonValueArray = JSONValue(underlying: undelyingArray, path: JSONPath())
+        XCTAssertEqual(
+            Set([0,1,2,3,4].map(JSONPathComponent.init(_:))),
+            Set(jsonValueArray.subPathComponents)
+        )
+
+        let jsonValueNil = JSONValue(underlying: nil, path: JSONPath())
+        XCTAssertTrue(jsonValueNil.subPathComponents.isEmpty)
+    }
 }

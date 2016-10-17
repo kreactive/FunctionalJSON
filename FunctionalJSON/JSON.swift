@@ -43,7 +43,16 @@ public struct JSONValue : JSONReadable {
     public var isNull : Bool {
         return self.underlying == nil
     }
-    
+    public var subPathComponents : [JSONPathComponent] {
+        switch self.underlying {
+        case let dict as Dictionary<String,Any>:
+            return dict.keys.map(JSONPathComponent.init(_:))
+        case let array as [Any]:
+            return array.indices.map(JSONPathComponent.init(_:))
+        default:
+            return []
+        }
+    }
     public func elementAtPath(_ path : JSONPath) -> JSONValue {
         var currentValue = self
         var currentPath = self.path
@@ -87,7 +96,7 @@ public struct JSONValue : JSONReadable {
 }
 
 
-public enum JSONPathComponent : ExpressibleByIntegerLiteral,ExpressibleByStringLiteral,Equatable,CustomStringConvertible {
+public enum JSONPathComponent : ExpressibleByIntegerLiteral,ExpressibleByStringLiteral,Hashable,CustomStringConvertible {
     case key(String)
     case index(Int)
     init(_ value: String) {
@@ -114,6 +123,14 @@ public enum JSONPathComponent : ExpressibleByIntegerLiteral,ExpressibleByStringL
         switch self {
         case .key(let v) : return v
         case .index(let v) : return String(v)
+        }
+    }
+    public var hashValue: Int {
+        switch self {
+        case .index(let index):
+            return index.hashValue
+        case .key(let key):
+            return key.hashValue
         }
     }
 }
